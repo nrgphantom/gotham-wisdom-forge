@@ -1,12 +1,57 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
+import { fetchBatmanWisdom, parseFinanceTips } from '../utils/batmanWisdom';
+import { toast } from "sonner";
 
 const Finance = () => {
   const [mode, setMode] = useState<'rookie' | 'wayne'>('rookie');
+  const [financeTips, setFinanceTips] = useState<{
+    rookie: Array<{
+      title: string;
+      quote: string;
+      category: string;
+      icon: string;
+    }>;
+    wayne: Array<{
+      title: string;
+      quote: string;
+      category: string;
+      icon: string;
+    }>;
+  }>({ rookie: [], wayne: [] });
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const rookieTips = [
+  const fetchFinanceContent = async () => {
+    setLoading(true);
+    try {
+      const response = await fetchBatmanWisdom("financeTips");
+      const parsed = parseFinanceTips(response);
+      if (parsed.rookie.length > 0 || parsed.wayne.length > 0) {
+        setFinanceTips(parsed);
+      }
+    } catch (error) {
+      console.error("Error fetching finance tips:", error);
+      toast.error("Failed to communicate with the Batcomputer. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchFinanceContent();
+    
+    // Set up content refresh every 30 minutes
+    const refreshInterval = setInterval(() => {
+      fetchFinanceContent();
+    }, 30 * 60 * 1000);
+    
+    return () => clearInterval(refreshInterval);
+  }, []);
+
+  // Default finance tips in case the API fails
+  const defaultRookieTips = [
     {
       title: "Emergency Fund",
       quote: "Always have an escape route. Keep 6 months of expenses saved. You never know when you'll need to disappear.",
@@ -27,7 +72,7 @@ const Finance = () => {
     }
   ];
 
-  const wayneTips = [
+  const defaultWayneTips = [
     {
       title: "Diversification",
       quote: "Never put all your resources in one place. Spread your investments like you spread your operations.",
@@ -48,7 +93,9 @@ const Finance = () => {
     }
   ];
 
-  const currentTips = mode === 'rookie' ? rookieTips : wayneTips;
+  const currentTips = mode === 'rookie' 
+    ? (financeTips.rookie.length > 0 ? financeTips.rookie : defaultRookieTips)
+    : (financeTips.wayne.length > 0 ? financeTips.wayne : defaultWayneTips);
 
   return (
     <div className="min-h-screen bg-gotham-black">
@@ -93,17 +140,23 @@ const Finance = () => {
           </div>
 
           {/* Tips Grid */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {currentTips.map((tip, index) => (
-              <WisdomCard
-                key={index}
-                title={tip.title}
-                quote={tip.quote}
-                category={tip.category}
-                icon={tip.icon}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              {currentTips.map((tip, index) => (
+                <WisdomCard
+                  key={index}
+                  title={tip.title}
+                  quote={tip.quote}
+                  category={tip.category}
+                  icon={tip.icon}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Daily Tip */}
           <div className="gotham-card p-8 rounded-lg text-center">

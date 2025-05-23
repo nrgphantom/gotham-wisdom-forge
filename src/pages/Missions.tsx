@@ -11,7 +11,6 @@ const Missions = () => {
       title: "Dawn Patrol",
       description: "Wake up at 5 AM and start your day with intention",
       difficulty: "Rookie",
-      reward: "10 BAT",
       icon: "🌅"
     },
     {
@@ -19,7 +18,6 @@ const Missions = () => {
       title: "Physical Training",
       description: "Complete 30 minutes of physical exercise",
       difficulty: "Standard",
-      reward: "25 BAT",
       icon: "💪"
     },
     {
@@ -27,7 +25,6 @@ const Missions = () => {
       title: "Knowledge Acquisition",
       description: "Read for 20 minutes or learn something new",
       difficulty: "Standard",
-      reward: "20 BAT",
       icon: "📖"
     },
     {
@@ -35,7 +32,6 @@ const Missions = () => {
       title: "Act of Justice",
       description: "Help someone who needs assistance today",
       difficulty: "Advanced",
-      reward: "50 BAT",
       icon: "⚖️"
     },
     {
@@ -43,7 +39,6 @@ const Missions = () => {
       title: "Digital Detox",
       description: "Spend 1 hour without any devices or social media",
       difficulty: "Advanced",
-      reward: "40 BAT",
       icon: "📱"
     }
   ];
@@ -54,7 +49,6 @@ const Missions = () => {
       title: "Master Planner",
       description: "Plan your entire week every Sunday",
       difficulty: "Elite",
-      reward: "100 BAT",
       icon: "📋"
     },
     {
@@ -62,7 +56,6 @@ const Missions = () => {
       title: "Financial Discipline",
       description: "Track every expense for 7 days",
       difficulty: "Elite",
-      reward: "150 BAT",
       icon: "💰"
     }
   ];
@@ -90,9 +83,6 @@ const Missions = () => {
   };
 
   const totalCompleted = completedMissions.size;
-  const totalRewards = [...dailyMissions, ...weeklyMissions]
-    .filter(mission => completedMissions.has(mission.id))
-    .reduce((sum, mission) => sum + parseInt(mission.reward.split(' ')[0]), 0);
 
   return (
     <div className="min-h-screen bg-gotham-black">
@@ -110,22 +100,12 @@ const Missions = () => {
             </p>
           </div>
 
-          {/* Stats Dashboard */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="gotham-card p-6 rounded-lg text-center">
+          {/* Stats Dashboard - Only showing Missions Completed */}
+          <div className="flex justify-center mb-12">
+            <div className="gotham-card p-6 rounded-lg text-center w-full max-w-xs">
               <div className="text-3xl mb-2">🎯</div>
-              <h3 className="font-batman font-bold text-bat-yellow text-lg">Missions Complete</h3>
+              <h3 className="font-batman font-bold text-bat-yellow text-lg">Missions Completed</h3>
               <p className="text-2xl text-white font-bold">{totalCompleted}</p>
-            </div>
-            <div className="gotham-card p-6 rounded-lg text-center">
-              <div className="text-3xl mb-2">🦇</div>
-              <h3 className="font-batman font-bold text-bat-yellow text-lg">BAT Earned</h3>
-              <p className="text-2xl text-white font-bold">{totalRewards}</p>
-            </div>
-            <div className="gotham-card p-6 rounded-lg text-center">
-              <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-batman font-bold text-bat-yellow text-lg">Streak</h3>
-              <p className="text-2xl text-white font-bold">3 Days</p>
             </div>
           </div>
 
@@ -151,10 +131,7 @@ const Missions = () => {
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {mission.description}
                   </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-bat-yellow font-batman font-bold text-sm">
-                      +{mission.reward}
-                    </span>
+                  <div className="flex justify-end items-center">
                     <button
                       onClick={() => toggleMission(mission.id)}
                       className={`px-4 py-2 rounded-lg font-batman font-bold text-xs uppercase tracking-wide transition-all duration-300 ${
@@ -193,10 +170,7 @@ const Missions = () => {
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {mission.description}
                   </p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-bat-yellow font-batman font-bold text-sm">
-                      +{mission.reward}
-                    </span>
+                  <div className="flex justify-end items-center">
                     <button
                       onClick={() => toggleMission(mission.id)}
                       className={`px-4 py-2 rounded-lg font-batman font-bold text-xs uppercase tracking-wide transition-all duration-300 ${

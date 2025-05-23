@@ -1,10 +1,73 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
+import { fetchBatmanWisdom, parseHealthProtocols } from '../utils/batmanWisdom';
+import { toast } from "sonner";
 
 const Health = () => {
-  const healthProtocols = [
+  const [healthProtocols, setHealthProtocols] = useState<Array<{
+    title: string;
+    quote: string;
+    category: string;
+    icon: string;
+  }>>([]);
+  const [dailyChallenge, setDailyChallenge] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+  const [challengeCompleted, setChallengeCompleted] = useState<boolean>(false);
+
+  const fetchHealthContent = async () => {
+    setLoading(true);
+    try {
+      // Fetch health protocols
+      const protocolsResponse = await fetchBatmanWisdom("healthProtocols");
+      const parsedProtocols = parseHealthProtocols(protocolsResponse);
+      if (parsedProtocols.length > 0) {
+        setHealthProtocols(parsedProtocols);
+      }
+      
+      // Fetch health challenge
+      const challengeResponse = await fetchBatmanWisdom("healthChallenge");
+      if (challengeResponse) {
+        setDailyChallenge(challengeResponse);
+      }
+    } catch (error) {
+      console.error("Error fetching health content:", error);
+      toast.error("Failed to communicate with the Batcomputer. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHealthContent();
+    
+    // Check if the challenge was completed today
+    const today = new Date().toISOString().split('T')[0];
+    const lastCompleted = localStorage.getItem('batmanHealthChallengeCompleted');
+    if (lastCompleted === today) {
+      setChallengeCompleted(true);
+    } else {
+      setChallengeCompleted(false);
+    }
+    
+    // Set up content refresh every 30 minutes
+    const refreshInterval = setInterval(() => {
+      fetchHealthContent();
+    }, 30 * 60 * 1000);
+    
+    return () => clearInterval(refreshInterval);
+  }, []);
+
+  const handleChallengeComplete = () => {
+    const today = new Date().toISOString().split('T')[0];
+    localStorage.setItem('batmanHealthChallengeCompleted', today);
+    setChallengeCompleted(true);
+    toast.success("Challenge completed! The Bat approves.");
+  };
+
+  // Default health protocols in case the API fails
+  const defaultHealthProtocols = [
     {
       title: "Physical Training",
       quote: "A strong mind needs a strong body. Train daily. Push beyond your limits. Your body is your primary weapon.",
@@ -30,6 +93,9 @@ const Health = () => {
       icon: "🥗"
     }
   ];
+
+  const displayHealthProtocols = healthProtocols.length > 0 ? healthProtocols : defaultHealthProtocols;
+  const displayChallenge = dailyChallenge || "Complete 100 push-ups today. Break them into sets. Your future self will thank you.";
 
   const dailyRoutine = [
     { time: "5:00 AM", activity: "Wake up, no snooze", icon: "⏰" },
@@ -57,17 +123,23 @@ const Health = () => {
           </div>
 
           {/* Health Protocols Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {healthProtocols.map((protocol, index) => (
-              <WisdomCard
-                key={index}
-                title={protocol.title}
-                quote={protocol.quote}
-                category={protocol.category}
-                icon={protocol.icon}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {displayHealthProtocols.map((protocol, index) => (
+                <WisdomCard
+                  key={index}
+                  title={protocol.title}
+                  quote={protocol.quote}
+                  category={protocol.category}
+                  icon={protocol.icon}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Daily Routine */}
           <div className="grid lg:grid-cols-2 gap-8">
@@ -99,17 +171,16 @@ const Health = () => {
                     GOTHAM STRENGTH
                   </h3>
                   <p className="text-gray-300 mb-4">
-                    Complete 100 push-ups today. Break them into sets. Your future self will thank you.
+                    {displayChallenge}
                   </p>
-                  <div className="bg-gotham-gray rounded-lg p-4 mb-6">
-                    <p className="text-sm text-gray-400 mb-2">Progress Today</p>
-                    <div className="bg-gotham-black rounded-full h-4 mb-2">
-                      <div className="bg-bat-yellow h-4 rounded-full w-0 transition-all duration-300"></div>
-                    </div>
-                    <p className="text-bat-yellow font-batman font-bold">0 / 100 Push-ups</p>
-                  </div>
-                  <button className="batman-button px-6 py-3 rounded-full font-batman font-bold text-gotham-black text-sm uppercase tracking-wide w-full">
-                    Log Progress
+                  <button 
+                    onClick={handleChallengeComplete} 
+                    disabled={challengeCompleted}
+                    className={`batman-button px-6 py-3 rounded-full font-batman font-bold text-sm uppercase tracking-wide w-full ${
+                      challengeCompleted ? 'bg-green-500 cursor-default' : 'bg-bat-yellow text-gotham-black'
+                    }`}
+                  >
+                    {challengeCompleted ? 'Challenge Completed ✓' : 'Challenge Completed'}
                   </button>
                 </div>
               </div>

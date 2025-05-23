@@ -1,10 +1,56 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
+import { fetchBatmanWisdom, parseWisdomQuotes } from '../utils/batmanWisdom';
+import { toast } from "sonner";
 
 const Justice = () => {
-  const wisdomQuotes = [
+  const [wisdomQuotes, setWisdomQuotes] = useState<Array<{
+    title: string;
+    quote: string;
+    category: string;
+    icon: string;
+  }>>([]);
+  const [dailyChallenge, setDailyChallenge] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchWisdomContent = async () => {
+    setLoading(true);
+    try {
+      // Fetch wisdom quotes
+      const wisdomResponse = await fetchBatmanWisdom("wisdomQuotes");
+      const parsedWisdom = parseWisdomQuotes(wisdomResponse);
+      if (parsedWisdom.length > 0) {
+        setWisdomQuotes(parsedWisdom);
+      }
+      
+      // Fetch justice challenge
+      const challengeResponse = await fetchBatmanWisdom("justiceChallenge");
+      if (challengeResponse) {
+        setDailyChallenge(challengeResponse);
+      }
+    } catch (error) {
+      console.error("Error fetching Batman wisdom:", error);
+      toast.error("Failed to communicate with the Batcomputer. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchWisdomContent();
+    
+    // Set up content refresh every 30 minutes
+    const refreshInterval = setInterval(() => {
+      fetchWisdomContent();
+    }, 30 * 60 * 1000);
+    
+    return () => clearInterval(refreshInterval);
+  }, []);
+
+  // Default content in case the API fails
+  const defaultWisdomQuotes = [
     {
       title: "The Path of Justice",
       quote: "Justice isn't just law. It's doing what's right when nobody's watching. Start by being disciplined with yourself.",
@@ -31,6 +77,9 @@ const Justice = () => {
     }
   ];
 
+  const displayWisdomQuotes = wisdomQuotes.length > 0 ? wisdomQuotes : defaultWisdomQuotes;
+  const displayChallenge = dailyChallenge || "Stand up for someone who cannot stand up for themselves. Justice begins with the smallest acts of courage.";
+
   return (
     <div className="min-h-screen bg-gotham-black">
       <Navigation />
@@ -48,17 +97,23 @@ const Justice = () => {
           </div>
 
           {/* Wisdom Cards Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {wisdomQuotes.map((wisdom, index) => (
-              <WisdomCard
-                key={index}
-                title={wisdom.title}
-                quote={wisdom.quote}
-                category={wisdom.category}
-                icon={wisdom.icon}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              {displayWisdomQuotes.map((wisdom, index) => (
+                <WisdomCard
+                  key={index}
+                  title={wisdom.title}
+                  quote={wisdom.quote}
+                  category={wisdom.category}
+                  icon={wisdom.icon}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Daily Challenge Section */}
           <div className="gotham-card p-8 rounded-lg text-center">
@@ -66,8 +121,7 @@ const Justice = () => {
               TODAY'S JUSTICE CHALLENGE
             </h2>
             <p className="text-lg text-gray-300 mb-6">
-              "Stand up for someone who cannot stand up for themselves. 
-              Justice begins with the smallest acts of courage."
+              "{displayChallenge}"
             </p>
             <button className="batman-button px-8 py-3 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide">
               Accept Challenge
