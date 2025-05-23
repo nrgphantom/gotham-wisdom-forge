@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
 import { fetchBatmanWisdom, parseFinanceTips } from '../utils/batmanWisdom';
 import { toast } from "sonner";
 import StockMarketInsights from '../components/StockMarketInsights';
+
 const Finance = () => {
   const [mode, setMode] = useState<'rookie' | 'wayne'>('rookie');
   const [financeTips, setFinanceTips] = useState<{
@@ -24,6 +26,11 @@ const Finance = () => {
     wayne: []
   });
   const [loading, setLoading] = useState<boolean>(true);
+  const [dailyWisdom, setDailyWisdom] = useState<string>(
+    "A penny saved is a penny earned. But a dollar invested wisely becomes ten dollars in time. " +
+    "Start today, even if it's just spare change."
+  );
+  
   const fetchFinanceContent = async () => {
     setLoading(true);
     try {
@@ -39,13 +46,43 @@ const Finance = () => {
       setLoading(false);
     }
   };
+  
+  // Function to get a new daily financial wisdom based on the date
+  const getDailyFinancialWisdom = () => {
+    const wisdomList = [
+      "The stock market is a device for transferring money from the impatient to the patient. Discipline is your greatest weapon.",
+      "Fear others when they are greedy, be greedy when others fear. Market psychology is often backwards.",
+      "Your most important investment decision is asset allocation – how you divide your portfolio among stocks, bonds, and cash.",
+      "Long-term thinking is harder than people think, and rarer than people realize. Think in decades, not days.",
+      "Wealth isn't about having a lot of money; it's about having many options. Diversification protects those options.",
+      "The goal of investing isn't to minimize risk – it's to maximize returns for the risk you're willing to take.",
+      "The four most dangerous words in investing are: 'this time it's different.' History repeats itself.",
+      "Markets can remain irrational longer than you can remain solvent. Never bet everything on one position.",
+      "The best time to invest was yesterday. The second best time is now. Delaying only compounds your missed opportunities.",
+      "Your portfolio is like your utility belt – each tool has a specific purpose. Don't expect a batarang to do what a grappling hook should."
+    ];
+    
+    // Get a wisdom based on the day of the year (0-364)
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - startOfYear.getTime();
+    const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+    return wisdomList[dayOfYear % wisdomList.length];
+  };
+  
   useEffect(() => {
     fetchFinanceContent();
+    
+    // Set daily wisdom based on current date
+    setDailyWisdom(getDailyFinancialWisdom());
 
     // Set up content refresh every 30 minutes
     const refreshInterval = setInterval(() => {
       fetchFinanceContent();
+      setDailyWisdom(getDailyFinancialWisdom());
     }, 30 * 60 * 1000);
+    
     return () => clearInterval(refreshInterval);
   }, []);
 
@@ -83,6 +120,7 @@ const Finance = () => {
     icon: "🏭"
   }];
   const currentTips = mode === 'rookie' ? financeTips.rookie.length > 0 ? financeTips.rookie : defaultRookieTips : financeTips.wayne.length > 0 ? financeTips.wayne : defaultWayneTips;
+  
   return <div className="min-h-screen bg-gotham-black">
       <Navigation />
       
@@ -126,14 +164,16 @@ const Finance = () => {
               DAILY FINANCIAL WISDOM
             </h2>
             <p className="text-lg text-gray-300 mb-6">
-              "A penny saved is a penny earned. But a dollar invested wisely becomes ten dollars in time. 
-              Start today, even if it's just spare change."
+              "{dailyWisdom}"
             </p>
             <div className="flex justify-center space-x-4">
-              
-              <button className="px-6 py-3 rounded-full border border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold text-sm uppercase tracking-wide">
+              <a 
+                href="https://drive.google.com/file/d/1sDWlNWjrl-zLlc0EVIxe_Ix9xFwGEpJU/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer" 
+                className="px-6 py-3 rounded-full border border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold text-sm uppercase tracking-wide">
                 Investment Guide
-              </button>
+              </a>
             </div>
           </div>
         </div>
