@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Batman theme colors
+				'gotham-black': '#000000',
+				'gotham-dark': '#121212',
+				'gotham-gray': '#1C1C1C',
+				'gotham-lighter': '#333333',
+				'bat-yellow': '#FACC15',
+				'bat-crimson': '#B22222'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +92,41 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'bat-signal': {
+					'0%': {
+						opacity: '0.3',
+						transform: 'scale(0.8)'
+					},
+					'50%': {
+						opacity: '0.8',
+						transform: 'scale(1.1)'
+					},
+					'100%': {
+						opacity: '0.5',
+						transform: 'scale(1)'
+					}
+				},
+				'fade-in-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'bat-signal': 'bat-signal 3s ease-in-out infinite',
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
+			},
+			fontFamily: {
+				'batman': ['Orbitron', 'monospace'],
+				'gotham': ['Inter', 'sans-serif']
 			}
 		}
 	},
