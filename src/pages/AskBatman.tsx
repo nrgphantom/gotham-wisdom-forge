@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
-import { fetchBatmanWisdom } from '../utils/batmanWisdom';
 import { toast } from "sonner";
 
 const AskBatman = () => {
@@ -11,9 +10,11 @@ const AskBatman = () => {
   const handleAskBatman = async () => {
     setIsLoading(true);
     try {
-      const response = await fetchBatmanWisdom("askBatman");
-      if (response) {
-        setBatmanWisdom(response);
+      const response = await fetch('https://api.adviceslip.com/advice');
+      const data = await response.json();
+      
+      if (data && data.slip && data.slip.advice) {
+        setBatmanWisdom(data.slip.advice);
       } else {
         toast.error("Batman is currently unavailable. Try again later.");
       }

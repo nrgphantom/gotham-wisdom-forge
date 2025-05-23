@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
 import { fetchBatmanWisdom, parseFinanceTips } from '../utils/batmanWisdom';
 import { toast } from "sonner";
+import StockMarketInsights from '../components/StockMarketInsights';
 
 const Finance = () => {
   const [mode, setMode] = useState<'rookie' | 'wayne'>('rookie');
@@ -112,6 +113,9 @@ const Finance = () => {
               "It's not about the money. It's about sending a message. But money helps."
             </p>
           </div>
+
+          {/* Stock Market Insights Section */}
+          <StockMarketInsights />
 
           {/* Mode Selector */}
           <div className="flex justify-center mb-12">
