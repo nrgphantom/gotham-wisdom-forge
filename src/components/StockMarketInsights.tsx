@@ -8,7 +8,7 @@ interface AssetData {
   change: string;
   changePercent: string;
   isPositive: boolean;
-  assetType?: 'stock' | 'crypto' | 'commodity';
+  assetType: 'stock' | 'crypto' | 'commodity';
 }
 
 const StockMarketInsights = () => {
@@ -44,7 +44,7 @@ const StockMarketInsights = () => {
               change: parseFloat(change).toFixed(2),
               changePercent: changePercent,
               isPositive: parseFloat(change) >= 0,
-              assetType: 'stock'
+              assetType: 'stock' as const
             };
           }
           return null;
@@ -68,7 +68,7 @@ const StockMarketInsights = () => {
                 change: "0.00", // AlphaVantage free tier doesn't provide change for crypto in this endpoint
                 changePercent: "0.00%",
                 isPositive: true,
-                assetType: 'crypto'
+                assetType: 'crypto' as const
               };
             }
             return null;
@@ -96,7 +96,7 @@ const StockMarketInsights = () => {
                 change: "0.00", // AlphaVantage free tier doesn't provide change for commodities in this endpoint
                 changePercent: "0.00%",
                 isPositive: true,
-                assetType: 'commodity'
+                assetType: 'commodity' as const
               };
             }
             return null;
@@ -109,7 +109,14 @@ const StockMarketInsights = () => {
         // Combine all promises
         const allPromises = [...stockPromises, ...cryptoPromises, ...commodityPromises];
         const results = await Promise.all(allPromises);
-        setAssetData(results.filter((item): item is AssetData => item !== null));
+        
+        // Type-safe filter to ensure we only get valid AssetData objects
+        const validResults = results.filter((item): item is AssetData => 
+          item !== null && 
+          (item.assetType === 'stock' || item.assetType === 'crypto' || item.assetType === 'commodity')
+        );
+        
+        setAssetData(validResults);
       } catch (error) {
         console.error("Error fetching asset data:", error);
         toast.error("Failed to retrieve market insights");
