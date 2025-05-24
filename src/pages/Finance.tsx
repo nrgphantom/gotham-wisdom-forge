@@ -4,7 +4,6 @@ import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
 import { fetchBatmanWisdom, parseFinanceTips } from '../utils/batmanWisdom';
 import { toast } from "sonner";
-import StockMarketInsights from '../components/StockMarketInsights';
 import CoinGeckoInsights from '../components/CoinGeckoInsights';
 
 const Finance = () => {
@@ -293,9 +292,6 @@ const Finance = () => {
             </p>
           </div>
 
-          {/* Stock Market Insights Section */}
-          <StockMarketInsights />
-
           {/* CoinGecko Crypto Insights Section */}
           <CoinGeckoInsights />
 
@@ -310,7 +306,7 @@ const Finance = () => {
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
-                Rookie Mode ({defaultRookieTips.length} Tips)
+                Rookie Mode
               </button>
               <button 
                 onClick={() => setMode('wayne')} 
@@ -320,7 +316,7 @@ const Finance = () => {
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
-                Wayne Protocols ({defaultWayneTips.length} Tips)
+                Wayne Protocols
               </button>
             </div>
           </div>
@@ -333,13 +329,14 @@ const Finance = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {currentTips.map((tip, index) => (
-                <WisdomCard
-                  key={index}
-                  title={tip.title}
-                  quote={tip.quote}
-                  category={tip.category}
-                  icon={tip.icon}
-                />
+                <div key={index} className="hover:transform hover:scale-105 transition-all duration-300">
+                  <WisdomCard
+                    title={tip.title}
+                    quote={tip.quote}
+                    category={tip.category}
+                    icon={tip.icon}
+                  />
+                </div>
               ))}
             </div>
           )}
