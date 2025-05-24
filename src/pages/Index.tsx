@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
@@ -85,13 +86,13 @@ const Index = () => {
               href="https://batterminal.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+              className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
             >
               Terminal
             </a>
             <Link 
               to="/donate" 
-              className="px-8 py-4 rounded-full border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+              className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
             >
               Donate
             </Link>

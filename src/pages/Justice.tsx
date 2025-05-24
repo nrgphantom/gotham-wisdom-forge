@@ -49,7 +49,7 @@ const Justice = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Default content in case the API fails
+  // Enhanced justice wisdom with 10 unique cards
   const defaultWisdomQuotes = [
     {
       title: "The Path of Justice",
@@ -64,21 +64,57 @@ const Justice = () => {
       icon: "🦇"
     },
     {
-      title: "Preparation",
+      title: "Preparation Over Luck",
       quote: "I don't rely on luck. I rely on preparation. Plan for every scenario, then execute with precision.",
       category: "Strategic Thinking",
       icon: "🎯"
     },
     {
-      title: "Integrity",
-      quote: "Your word is your bond. Make promises you can keep, and keep every promise you make.",
+      title: "Integrity Above All",
+      quote: "Your word is your bond. Make promises you can keep, and keep every promise you make. Trust is earned in drops and lost in buckets.",
       category: "Character",
       icon: "🛡️"
+    },
+    {
+      title: "Perseverance Through Adversity",
+      quote: "When you fall, the question isn't whether you'll get back up. It's how quickly you'll learn from the fall.",
+      category: "Resilience",
+      icon: "💪"
+    },
+    {
+      title: "Protecting the Innocent",
+      quote: "Power without purpose is meaningless. Use your strength to protect those who cannot protect themselves.",
+      category: "Service",
+      icon: "🏛️"
+    },
+    {
+      title: "The Weight of Choice",
+      quote: "Every choice has consequences. Think three moves ahead. Your decisions today shape the world tomorrow.",
+      category: "Decision Making",
+      icon: "🤔"
+    },
+    {
+      title: "Leading by Example",
+      quote: "Don't tell people what to do. Show them. Actions speak louder than words, and consistency speaks loudest of all.",
+      category: "Leadership",
+      icon: "👥"
+    },
+    {
+      title: "Continuous Improvement",
+      quote: "Yesterday's training prepares you for today's challenges. Today's training prepares you for tomorrow's impossible.",
+      category: "Growth",
+      icon: "📈"
+    },
+    {
+      title: "Standing Alone",
+      quote: "Sometimes doing what's right means standing alone. Be prepared to be misunderstood by many to save even one.",
+      category: "Moral Courage",
+      icon: "🌟"
     }
   ];
 
   const displayWisdomQuotes = wisdomQuotes.length > 0 ? wisdomQuotes : defaultWisdomQuotes;
-  const displayChallenge = dailyChallenge || "Stand up for someone who cannot stand up for themselves. Justice begins with the smallest acts of courage.";
+  const displayChallenge = dailyChallenge || "Stand up for someone who cannot stand up for themselves. Justice begins with the smallest acts of courage. Make one person's day better today.";
 
   return (
     <div className="min-h-screen bg-gotham-black">
@@ -102,7 +138,7 @@ const Justice = () => {
               <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {displayWisdomQuotes.map((wisdom, index) => (
                 <WisdomCard
                   key={index}
@@ -123,9 +159,9 @@ const Justice = () => {
             <p className="text-lg text-gray-300 mb-6">
               "{displayChallenge}"
             </p>
-            <button className="batman-button px-8 py-3 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide">
-              Accept Challenge
-            </button>
+            <div className="text-gray-400 text-sm">
+              "The smallest act of justice can change someone's entire world."
+            </div>
           </div>
         </div>
       </div>

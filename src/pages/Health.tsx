@@ -14,7 +14,6 @@ const Health = () => {
   }>>([]);
   const [dailyChallenge, setDailyChallenge] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
-  const [challengeCompleted, setChallengeCompleted] = useState<boolean>(false);
 
   const fetchHealthContent = async () => {
     setLoading(true);
@@ -42,15 +41,6 @@ const Health = () => {
   useEffect(() => {
     fetchHealthContent();
     
-    // Check if the challenge was completed today
-    const today = new Date().toISOString().split('T')[0];
-    const lastCompleted = localStorage.getItem('batmanHealthChallengeCompleted');
-    if (lastCompleted === today) {
-      setChallengeCompleted(true);
-    } else {
-      setChallengeCompleted(false);
-    }
-    
     // Set up content refresh every 30 minutes
     const refreshInterval = setInterval(() => {
       fetchHealthContent();
@@ -59,43 +49,72 @@ const Health = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  const handleChallengeComplete = () => {
-    const today = new Date().toISOString().split('T')[0];
-    localStorage.setItem('batmanHealthChallengeCompleted', today);
-    setChallengeCompleted(true);
-    toast.success("Challenge completed! The Bat approves.");
-  };
-
-  // Default health protocols in case the API fails
+  // Enhanced health protocols with 10 unique cards
   const defaultHealthProtocols = [
     {
-      title: "Physical Training",
+      title: "Physical Foundation",
       quote: "A strong mind needs a strong body. Train daily. Push beyond your limits. Your body is your primary weapon.",
       category: "Fitness",
       icon: "💪"
     },
     {
-      title: "Rest & Recovery",
+      title: "Recovery Protocols",
       quote: "Even Batman sleeps. Your body repairs itself in rest. 7-8 hours of quality sleep is non-negotiable.",
       category: "Recovery",
       icon: "😴"
     },
     {
       title: "Mental Discipline",
-      quote: "Control your thoughts, control your life. Meditation isn't weakness—it's mental armor.",
+      quote: "Control your thoughts, control your life. Meditation isn't weakness—it's mental armor against chaos.",
       category: "Mental Health",
       icon: "🧠"
     },
     {
-      title: "Nutrition",
-      quote: "Fuel your body like the machine it is. Clean food, clean mind, clean performance.",
+      title: "Nutrition as Fuel",
+      quote: "Fuel your body like the machine it is. Clean food, clean mind, clean performance. You are what you eat.",
       category: "Diet",
       icon: "🥗"
+    },
+    {
+      title: "Cardiovascular Mastery",
+      quote: "Your heart is your engine. Cardio training builds the endurance to outlast any enemy, including yourself.",
+      category: "Cardio",
+      icon: "❤️"
+    },
+    {
+      title: "Strength Building",
+      quote: "Strength isn't just physical. Every rep builds mental resilience. Lift weights to lift your spirit.",
+      category: "Strength",
+      icon: "🏋️"
+    },
+    {
+      title: "Flexibility & Mobility",
+      quote: "A flexible body houses a flexible mind. Stretch your muscles and stretch your limits.",
+      category: "Mobility",
+      icon: "🤸"
+    },
+    {
+      title: "Stress Management",
+      quote: "Stress is inevitable. How you handle it defines you. Breathe through the chaos, think through the pressure.",
+      category: "Stress Relief",
+      icon: "🕯️"
+    },
+    {
+      title: "Hydration Protocol",
+      quote: "Water is life. Dehydration clouds judgment and weakens resolve. Drink like your mission depends on it.",
+      category: "Hydration",
+      icon: "💧"
+    },
+    {
+      title: "Injury Prevention",
+      quote: "The best injury is the one that never happens. Warm up properly, cool down completely, listen to your body.",
+      category: "Prevention",
+      icon: "🛡️"
     }
   ];
 
   const displayHealthProtocols = healthProtocols.length > 0 ? healthProtocols : defaultHealthProtocols;
-  const displayChallenge = dailyChallenge || "Complete 100 push-ups today. Break them into sets. Your future self will thank you.";
+  const displayChallenge = dailyChallenge || "Complete 100 push-ups today. Break them into sets throughout the day. Your future self will thank you for every single rep.";
 
   const dailyRoutine = [
     { time: "5:00 AM", activity: "Wake up, no snooze", icon: "⏰" },
@@ -128,7 +147,7 @@ const Health = () => {
               <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {displayHealthProtocols.map((protocol, index) => (
                 <WisdomCard
                   key={index}
@@ -141,7 +160,7 @@ const Health = () => {
             </div>
           )}
 
-          {/* Daily Routine */}
+          {/* Daily Routine and Challenge */}
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="gotham-card p-8 rounded-lg">
               <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-6">
@@ -162,26 +181,20 @@ const Health = () => {
 
             <div className="gotham-card p-8 rounded-lg">
               <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-6">
-                TODAY'S CHALLENGE
+                GOTHAM STRENGTH CHALLENGE
               </h2>
               <div className="space-y-6">
                 <div className="text-center">
                   <div className="text-4xl mb-4">🔥</div>
                   <h3 className="font-batman font-bold text-xl text-white mb-2">
-                    GOTHAM STRENGTH
+                    DAILY PROTOCOL
                   </h3>
                   <p className="text-gray-300 mb-4">
                     {displayChallenge}
                   </p>
-                  <button 
-                    onClick={handleChallengeComplete} 
-                    disabled={challengeCompleted}
-                    className={`batman-button px-6 py-3 rounded-full font-batman font-bold text-sm uppercase tracking-wide w-full ${
-                      challengeCompleted ? 'bg-green-500 cursor-default' : 'bg-bat-yellow text-gotham-black'
-                    }`}
-                  >
-                    {challengeCompleted ? 'Challenge Completed ✓' : 'Challenge Completed'}
-                  </button>
+                  <div className="text-gray-400 text-sm">
+                    "Discipline is choosing between what you want now and what you want most."
+                  </div>
                 </div>
               </div>
             </div>
