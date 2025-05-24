@@ -1,10 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
-import ClinicalTrialDetail from '../components/ClinicalTrialDetail';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Button } from '../components/ui/button';
 import { fetchBatmanWisdom, parseHealthProtocols } from '../utils/batmanWisdom';
 import { toast } from "sonner";
 
@@ -13,8 +12,6 @@ interface CovidData {
   deaths: number;
   recovered: number;
   updated: number;
-  active: number;
-  critical: number;
 }
 
 interface ClinicalTrial {
@@ -54,12 +51,6 @@ const Health = () => {
   const [covidData, setCovidData] = useState<CovidData | null>(null);
   const [clinicalTrials, setClinicalTrials] = useState<ClinicalTrial[]>([]);
   const [whoHealthData, setWhoHealthData] = useState<WHOData | null>(null);
-  const [clinicalTrialsPage, setClinicalTrialsPage] = useState(1);
-  const [allClinicalTrials, setAllClinicalTrials] = useState<ClinicalTrial[]>([]);
-  const [selectedTrial, setSelectedTrial] = useState<ClinicalTrial | null>(null);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [nutritionData, setNutritionData] = useState<any>(null);
-  const [globalHealthStats, setGlobalHealthStats] = useState<any>(null);
 
   const fetchHealthContent = async () => {
     setLoading(true);
@@ -94,86 +85,31 @@ const Health = () => {
     }
   };
 
-  const fetchClinicalTrials = async (page: number = 1, append: boolean = false) => {
-    if (page > 1) setLoadingMore(true);
+  const fetchClinicalTrials = async () => {
     try {
-      const pageSize = 10;
-      const response = await fetch(`https://clinicaltrials.gov/api/v2/studies?query.cond=Health&countTotal=true&pageSize=${pageSize}&pageToken=${(page - 1) * pageSize}&format=json`);
+      const response = await fetch('https://clinicaltrials.gov/api/v2/studies?query.cond=Health&countTotal=true&pageSize=5&format=json');
       const data = await response.json();
-      const newTrials = data.studies || [];
-      
-      if (append) {
-        setAllClinicalTrials(prev => [...prev, ...newTrials]);
-      } else {
-        setAllClinicalTrials(newTrials);
-      }
-      setClinicalTrialsPage(page);
+      setClinicalTrials(data.studies || []);
     } catch (error) {
       console.error("Error fetching clinical trials:", error);
-    } finally {
-      setLoadingMore(false);
     }
   };
 
-  const fetchNutritionData = async () => {
+  const fetchWHOData = async () => {
     try {
-      // Fetch sample nutrition data for common healthy foods
-      const foods = ['3017620422003', '20004947', '8901030865688']; // Sample barcodes
-      const nutritionPromises = foods.map(async (barcode) => {
-        try {
-          const response = await fetch(`https://world.openfoodfacts.org/api/v0/product/${barcode}.json`);
-          const data = await response.json();
-          return data.product;
-        } catch (error) {
-          return null;
-        }
-      });
-      
-      const results = await Promise.all(nutritionPromises);
-      setNutritionData(results.filter(Boolean));
+      const response = await fetch('https://ghoapi.azureedge.net/api/WHOSIS_000001');
+      const data = await response.json();
+      setWhoHealthData(data);
     } catch (error) {
-      console.error("Error fetching nutrition data:", error);
+      console.error("Error fetching WHO data:", error);
     }
-  };
-
-  const fetchGlobalHealthStats = async () => {
-    try {
-      const endpoints = [
-        'https://ghoapi.azureedge.net/api/WHOSIS_000001', // Life expectancy
-        'https://ghoapi.azureedge.net/api/WHOSIS_000015', // Infant mortality
-        'https://ghoapi.azureedge.net/api/MDG_0000000001', // Under-5 mortality
-      ];
-      
-      const responses = await Promise.allSettled(endpoints.map(url => fetch(url).then(r => r.json())));
-      const validData = responses
-        .filter(result => result.status === 'fulfilled')
-        .map(result => (result as PromiseFulfilledResult<any>).value)
-        .filter(data => data && data.value);
-      
-      setGlobalHealthStats(validData);
-    } catch (error) {
-      console.error("Error fetching global health stats:", error);
-    }
-  };
-
-  const loadMoreTrials = () => {
-    fetchClinicalTrials(clinicalTrialsPage + 1, true);
-  };
-
-  const handleTrialClick = (trial: ClinicalTrial) => {
-    setSelectedTrial(trial);
-  };
-
-  const handleBackToResearch = () => {
-    setSelectedTrial(null);
   };
 
   useEffect(() => {
     fetchHealthContent();
     fetchCovidData();
     fetchClinicalTrials();
-    fetchNutritionData();
-    fetchGlobalHealthStats();
+    fetchWHOData();
     
     // Set up content refresh every 30 minutes
     const refreshInterval = setInterval(() => {
@@ -297,7 +233,7 @@ const Health = () => {
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {displayHealthProtocols.map((protocol, index) => (
-                    <div key={index} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                    <div key={index} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                       <WisdomCard
                         title={protocol.title}
                         quote={protocol.quote}
@@ -311,177 +247,92 @@ const Health = () => {
             </TabsContent>
 
             <TabsContent value="global">
-              <div className="space-y-8">
-                {/* COVID Data */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {covidData && (
-                    <>
-                      <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                        <CardHeader>
-                          <CardTitle className="text-bat-yellow font-batman">🦠 Global COVID Cases</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-3xl font-bold text-white mb-2">{formatNumber(covidData.cases)}</p>
-                          <p className="text-gray-400 text-sm">Total confirmed cases worldwide</p>
-                          <div className="mt-4 space-y-1">
-                            <p className="text-sm text-gray-300">Active: {formatNumber(covidData.active)}</p>
-                            <p className="text-sm text-gray-300">Critical: {formatNumber(covidData.critical)}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                        <CardHeader>
-                          <CardTitle className="text-bat-yellow font-batman">💚 Recovered</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-3xl font-bold text-green-400 mb-2">{formatNumber(covidData.recovered)}</p>
-                          <p className="text-gray-400 text-sm">Total recoveries worldwide</p>
-                          <div className="mt-4">
-                            <p className="text-sm text-gray-300">Recovery Rate: {((covidData.recovered / covidData.cases) * 100).toFixed(1)}%</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                        <CardHeader>
-                          <CardTitle className="text-bat-yellow font-batman">⚠️ Deaths</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-3xl font-bold text-red-400 mb-2">{formatNumber(covidData.deaths)}</p>
-                          <p className="text-gray-400 text-sm">Total deaths worldwide</p>
-                          <div className="mt-4">
-                            <p className="text-sm text-gray-300">Mortality Rate: {((covidData.deaths / covidData.cases) * 100).toFixed(2)}%</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </>
-                  )}
-                </div>
-
-                {/* Global Health Statistics */}
-                {globalHealthStats && globalHealthStats.length > 0 && (
-                  <div>
-                    <h3 className="text-2xl font-batman text-bat-yellow mb-6">🌍 WHO Global Health Indicators</h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {globalHealthStats.map((dataset, datasetIndex) => (
-                        dataset.value && dataset.value.slice(0, 6).map((stat: any, index: number) => (
-                          <Card key={`${datasetIndex}-${index}`} className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                            <CardHeader>
-                              <CardTitle className="text-bat-yellow font-batman text-lg">{stat.SpatialDim}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-2xl font-bold text-white mb-2">{stat.Value || stat.NumericValue}</p>
-                              <p className="text-gray-400 text-sm">{stat.Dim1}</p>
-                              <p className="text-gray-300 text-xs mt-2">Year: {stat.TimeDim}</p>
-                            </CardContent>
-                          </Card>
-                        ))
-                      ))}
-                    </div>
-                  </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {covidData && (
+                  <>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">🦠 Global COVID Cases</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-white mb-2">{formatNumber(covidData.cases)}</p>
+                        <p className="text-gray-400 text-sm">Total confirmed cases worldwide</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">💚 Recovered</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-green-400 mb-2">{formatNumber(covidData.recovered)}</p>
+                        <p className="text-gray-400 text-sm">Total recoveries worldwide</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">⚠️ Deaths</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-red-400 mb-2">{formatNumber(covidData.deaths)}</p>
+                        <p className="text-gray-400 text-sm">Total deaths worldwide</p>
+                      </CardContent>
+                    </Card>
+                  </>
                 )}
-
-                {/* Nutrition Insights */}
-                {nutritionData && nutritionData.length > 0 && (
-                  <div>
-                    <h3 className="text-2xl font-batman text-bat-yellow mb-6">🥗 Nutrition Insights</h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {nutritionData.map((food: any, index: number) => (
-                        <Card key={index} className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                          <CardHeader>
-                            <CardTitle className="text-bat-yellow font-batman text-lg">{food.product_name || 'Healthy Food'}</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-2">
-                              {food.nutriments && (
-                                <>
-                                  <p className="text-gray-300 text-sm">
-                                    <span className="text-bat-yellow">Energy:</span> {food.nutriments['energy-kcal_100g'] || 'N/A'} kcal/100g
-                                  </p>
-                                  <p className="text-gray-300 text-sm">
-                                    <span className="text-bat-yellow">Protein:</span> {food.nutriments.proteins_100g || 'N/A'}g/100g
-                                  </p>
-                                  <p className="text-gray-300 text-sm">
-                                    <span className="text-bat-yellow">Fat:</span> {food.nutriments.fat_100g || 'N/A'}g/100g
-                                  </p>
-                                </>
-                              )}
-                              {food.nutrition_grade_fr && (
-                                <div className="mt-3">
-                                  <span className={`px-2 py-1 rounded text-xs font-bold ${
-                                    food.nutrition_grade_fr === 'a' ? 'bg-green-500 text-white' :
-                                    food.nutrition_grade_fr === 'b' ? 'bg-yellow-500 text-black' :
-                                    food.nutrition_grade_fr === 'c' ? 'bg-orange-500 text-white' :
-                                    'bg-red-500 text-white'
-                                  }`}>
-                                    Nutri-Score: {food.nutrition_grade_fr.toUpperCase()}
-                                  </span>
-                                </div>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
+                {whoHealthData && whoHealthData.value && whoHealthData.value.length > 0 && (
+                  <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 md:col-span-2 lg:col-span-3">
+                    <CardHeader>
+                      <CardTitle className="text-bat-yellow font-batman">🌍 WHO Health Statistics</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid md:grid-cols-3 gap-4">
+                        {whoHealthData.value.slice(0, 6).map((stat, index) => (
+                          <div key={index} className="bg-gotham-gray p-4 rounded-lg">
+                            <p className="text-gray-300 text-sm">{stat.SpatialDim}</p>
+                            <p className="text-white font-bold">{stat.Value || stat.NumericValue}</p>
+                            <p className="text-gray-400 text-xs">{stat.TimeDim}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             </TabsContent>
 
             <TabsContent value="research">
-              <div className="space-y-6">
-                {selectedTrial ? (
-                  <ClinicalTrialDetail trial={selectedTrial} onBack={handleBackToResearch} />
-                ) : (
-                  <>
-                    <h3 className="text-2xl font-batman text-bat-yellow mb-4">🔬 Latest Clinical Trials</h3>
-                    {allClinicalTrials.length > 0 ? (
-                      <>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          {allClinicalTrials.map((trial, index) => (
-                            <Card 
-                              key={index} 
-                              className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 cursor-pointer"
-                              onClick={() => handleTrialClick(trial)}
-                            >
-                              <CardHeader>
-                                <CardTitle className="text-bat-yellow font-batman text-lg hover:text-white transition-colors">
-                                  {trial.protocolSection.identificationModule.briefTitle}
-                                </CardTitle>
-                              </CardHeader>
-                              <CardContent>
-                                <div className="space-y-2">
-                                  <p className="text-gray-300 text-sm">
-                                    <span className="text-bat-yellow">Status:</span> {trial.protocolSection.statusModule.overallStatus}
-                                  </p>
-                                  {trial.protocolSection.designModule && (
-                                    <p className="text-gray-300 text-sm">
-                                      <span className="text-bat-yellow">Type:</span> {trial.protocolSection.designModule.studyType}
-                                    </p>
-                                  )}
-                                  <p className="text-gray-400 text-xs mt-3">Click to read more details...</p>
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                        </div>
-                        <div className="flex justify-center mt-8">
-                          <Button
-                            onClick={loadMoreTrials}
-                            disabled={loadingMore}
-                            className="batman-button px-8 py-3 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide"
-                          >
-                            {loadingMore ? 'Loading...' : 'Load More Research'}
-                          </Button>
-                        </div>
-                      </>
-                    ) : (
-                      <Card className="gotham-card">
-                        <CardContent className="p-6">
-                          <p className="text-gray-400">Loading clinical trials data...</p>
+              <div className="grid gap-6">
+                <h3 className="text-2xl font-batman text-bat-yellow mb-4">🔬 Latest Clinical Trials</h3>
+                {clinicalTrials.length > 0 ? (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {clinicalTrials.slice(0, 4).map((trial, index) => (
+                      <Card key={index} className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                        <CardHeader>
+                          <CardTitle className="text-bat-yellow font-batman text-lg">
+                            {trial.protocolSection.identificationModule.briefTitle}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-2">
+                            <p className="text-gray-300 text-sm">
+                              <span className="text-bat-yellow">Status:</span> {trial.protocolSection.statusModule.overallStatus}
+                            </p>
+                            {trial.protocolSection.designModule && (
+                              <p className="text-gray-300 text-sm">
+                                <span className="text-bat-yellow">Type:</span> {trial.protocolSection.designModule.studyType}
+                              </p>
+                            )}
+                          </div>
                         </CardContent>
                       </Card>
-                    )}
-                  </>
+                    ))}
+                  </div>
+                ) : (
+                  <Card className="gotham-card">
+                    <CardContent className="p-6">
+                      <p className="text-gray-400">Loading clinical trials data...</p>
+                    </CardContent>
+                  </Card>
                 )}
               </div>
             </TabsContent>
