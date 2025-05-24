@@ -60,18 +60,6 @@ const Missions = () => {
     }
   ];
 
-  const toggleMission = (missionId: number) => {
-    setCompletedMissions(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(missionId)) {
-        newSet.delete(missionId);
-      } else {
-        newSet.add(missionId);
-      }
-      return newSet;
-    });
-  };
-
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Rookie': return 'text-green-400';
@@ -116,9 +104,7 @@ const Missions = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {dailyMissions.map((mission) => (
-                <div key={mission.id} className={`gotham-card p-6 rounded-lg transition-all duration-300 ${
-                  completedMissions.has(mission.id) ? 'ring-2 ring-bat-yellow bg-bat-yellow/5' : ''
-                }`}>
+                <div key={mission.id} className="gotham-card p-6 rounded-lg transition-all duration-300">
                   <div className="flex justify-between items-start mb-4">
                     <div className="text-3xl">{mission.icon}</div>
                     <span className={`text-xs font-batman font-bold px-2 py-1 rounded ${getDifficultyColor(mission.difficulty)}`}>
@@ -131,18 +117,6 @@ const Missions = () => {
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {mission.description}
                   </p>
-                  <div className="flex justify-end items-center">
-                    <button
-                      onClick={() => toggleMission(mission.id)}
-                      className={`px-4 py-2 rounded-lg font-batman font-bold text-xs uppercase tracking-wide transition-all duration-300 ${
-                        completedMissions.has(mission.id)
-                          ? 'bg-bat-yellow text-gotham-black'
-                          : 'border border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black'
-                      }`}
-                    >
-                      {completedMissions.has(mission.id) ? 'Completed' : 'Complete'}
-                    </button>
-                  </div>
                 </div>
               ))}
             </div>
@@ -155,9 +129,7 @@ const Missions = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {weeklyMissions.map((mission) => (
-                <div key={mission.id} className={`gotham-card p-6 rounded-lg transition-all duration-300 ${
-                  completedMissions.has(mission.id) ? 'ring-2 ring-bat-yellow bg-bat-yellow/5' : ''
-                }`}>
+                <div key={mission.id} className="gotham-card p-6 rounded-lg transition-all duration-300">
                   <div className="flex justify-between items-start mb-4">
                     <div className="text-3xl">{mission.icon}</div>
                     <span className={`text-xs font-batman font-bold px-2 py-1 rounded ${getDifficultyColor(mission.difficulty)}`}>
@@ -170,18 +142,6 @@ const Missions = () => {
                   <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                     {mission.description}
                   </p>
-                  <div className="flex justify-end items-center">
-                    <button
-                      onClick={() => toggleMission(mission.id)}
-                      className={`px-4 py-2 rounded-lg font-batman font-bold text-xs uppercase tracking-wide transition-all duration-300 ${
-                        completedMissions.has(mission.id)
-                          ? 'bg-bat-yellow text-gotham-black'
-                          : 'border border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black'
-                      }`}
-                    >
-                      {completedMissions.has(mission.id) ? 'Completed' : 'Complete'}
-                    </button>
-                  </div>
                 </div>
               ))}
             </div>

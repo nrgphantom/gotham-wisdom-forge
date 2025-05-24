@@ -11,7 +11,8 @@ const Navigation = () => {
     { path: '/finance', label: 'Finance' },
     { path: '/health', label: 'Health' },
     { path: '/askbatman', label: 'Ask Batman' },
-    { path: '/missions', label: 'Missions' }
+    { path: '/missions', label: 'Missions' },
+    { path: '/donate', label: 'Donate' }
   ];
 
   return (

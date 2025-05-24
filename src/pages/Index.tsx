@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
@@ -66,7 +65,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link 
               to="/askbatman" 
               className="batman-button px-8 py-4 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide"
@@ -78,6 +77,23 @@ const Index = () => {
               className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
             >
               View Missions
+            </Link>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <a 
+              href="https://batterminal.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-full border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+            >
+              Terminal
+            </a>
+            <Link 
+              to="/donate" 
+              className="px-8 py-4 rounded-full border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+            >
+              Donate
             </Link>
           </div>
         </div>
