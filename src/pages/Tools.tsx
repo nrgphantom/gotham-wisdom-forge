@@ -15,8 +15,8 @@ const Tools = () => {
     {
       name: "WayneProtocol",
       description: "Advanced Wayne Enterprises protocol system",
-      icon: "🏢",
-      url: "#",
+      image: "/lovable-uploads/59745761-3ed3-48e6-9f1c-8e70d3421637.png",
+      url: "https://wayneprotocol.vercel.app",
       category: "Protocol"
     },
     {
@@ -76,7 +76,7 @@ const Tools = () => {
                           <img 
                             src={tool.image} 
                             alt={tool.name}
-                            className="w-16 h-16 object-cover rounded-lg"
+                            className="w-20 h-20 object-contain rounded-lg bg-gotham-gray p-2"
                           />
                         ) : (
                           tool.icon
