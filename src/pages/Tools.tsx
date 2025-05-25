@@ -23,7 +23,7 @@ const Tools = () => {
       name: "0xCineZed",
       description: "Decentralized cinema and entertainment platform",
       image: "/lovable-uploads/222f5f7d-9efb-4462-a321-9cbf5b27916c.png",
-      url: "#",
+      url: "https://cinezed.vercel.app",
       category: "Entertainment"
     }
   ];
@@ -70,11 +70,11 @@ const Tools = () => {
               >
                 <Card className="gotham-card h-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 overflow-hidden">
                   {/* Full Image Display */}
-                  <div className="w-full h-48 overflow-hidden">
+                  <div className="w-full h-auto overflow-hidden">
                     <img 
                       src={tool.image} 
                       alt={tool.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   
