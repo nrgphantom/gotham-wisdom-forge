@@ -19,11 +19,15 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gotham-black/80 backdrop-blur-md border-b border-gotham-gray">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-bat-yellow rounded-full flex items-center justify-center">
-              <span className="text-gotham-black font-batman font-bold text-lg">🦇</span>
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+              <img 
+                src="/lovable-uploads/bb67fb31-0dc2-4b9e-8027-8461a0dfc6fc.png" 
+                alt="Batcoin Logo" 
+                className="w-8 h-8 object-contain"
+              />
             </div>
-            <span className="font-batman font-bold text-xl text-bat-yellow">BATCOIN</span>
+            <span className="font-batman font-bold text-xl text-bat-yellow group-hover:text-white transition-colors duration-300">BATCOIN</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">

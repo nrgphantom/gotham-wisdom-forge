@@ -12,21 +12,14 @@ interface CovidData {
   deaths: number;
   recovered: number;
   updated: number;
-}
-
-interface ClinicalTrial {
-  protocolSection: {
-    identificationModule: {
-      briefTitle: string;
-      officialTitle?: string;
-    };
-    statusModule: {
-      overallStatus: string;
-    };
-    designModule?: {
-      studyType: string;
-    };
-  };
+  todayCases: number;
+  todayDeaths: number;
+  todayRecovered: number;
+  active: number;
+  critical: number;
+  casesPerOneMillion: number;
+  deathsPerOneMillion: number;
+  affectedCountries: number;
 }
 
 interface WHOData {
@@ -39,6 +32,24 @@ interface WHOData {
   }>;
 }
 
+interface NutritionData {
+  product?: {
+    product_name?: string;
+    nutrition_grades?: string;
+    ecoscore_grade?: string;
+    nova_group?: number;
+    nutriscore_data?: {
+      energy?: number;
+      fiber?: number;
+      proteins?: number;
+      salt?: number;
+      saturated_fat?: number;
+      sodium?: number;
+      sugars?: number;
+    };
+  };
+}
+
 const Health = () => {
   const [healthProtocols, setHealthProtocols] = useState<Array<{
     title: string;
@@ -49,8 +60,8 @@ const Health = () => {
   const [dailyChallenge, setDailyChallenge] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [covidData, setCovidData] = useState<CovidData | null>(null);
-  const [clinicalTrials, setClinicalTrials] = useState<ClinicalTrial[]>([]);
   const [whoHealthData, setWhoHealthData] = useState<WHOData | null>(null);
+  const [nutritionData, setNutritionData] = useState<NutritionData | null>(null);
 
   const fetchHealthContent = async () => {
     setLoading(true);
@@ -85,16 +96,6 @@ const Health = () => {
     }
   };
 
-  const fetchClinicalTrials = async () => {
-    try {
-      const response = await fetch('https://clinicaltrials.gov/api/v2/studies?query.cond=Health&countTotal=true&pageSize=5&format=json');
-      const data = await response.json();
-      setClinicalTrials(data.studies || []);
-    } catch (error) {
-      console.error("Error fetching clinical trials:", error);
-    }
-  };
-
   const fetchWHOData = async () => {
     try {
       const response = await fetch('https://ghoapi.azureedge.net/api/WHOSIS_000001');
@@ -105,16 +106,28 @@ const Health = () => {
     }
   };
 
+  const fetchNutritionData = async () => {
+    try {
+      // Sample product barcode - you can make this dynamic
+      const response = await fetch('https://world.openfoodfacts.org/api/v0/product/3017620422003.json');
+      const data = await response.json();
+      setNutritionData(data);
+    } catch (error) {
+      console.error("Error fetching nutrition data:", error);
+    }
+  };
+
   useEffect(() => {
     fetchHealthContent();
     fetchCovidData();
-    fetchClinicalTrials();
     fetchWHOData();
+    fetchNutritionData();
     
     // Set up content refresh every 30 minutes
     const refreshInterval = setInterval(() => {
       fetchHealthContent();
       fetchCovidData();
+      fetchWHOData();
     }, 30 * 60 * 1000);
     
     return () => clearInterval(refreshInterval);
@@ -218,10 +231,9 @@ const Health = () => {
 
           {/* Health Data Tabs */}
           <Tabs defaultValue="protocols" className="mb-16">
-            <TabsList className="grid w-full grid-cols-4 bg-gotham-gray">
+            <TabsList className="grid w-full grid-cols-3 bg-gotham-gray">
               <TabsTrigger value="protocols" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Health Protocols</TabsTrigger>
               <TabsTrigger value="global" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Global Health</TabsTrigger>
-              <TabsTrigger value="research" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Research</TabsTrigger>
               <TabsTrigger value="monitoring" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Health Monitor</TabsTrigger>
             </TabsList>
 
@@ -233,7 +245,7 @@ const Health = () => {
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {displayHealthProtocols.map((protocol, index) => (
-                    <div key={index} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div key={index} className="transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
                       <WisdomCard
                         title={protocol.title}
                         quote={protocol.quote}
@@ -256,7 +268,9 @@ const Health = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-3xl font-bold text-white mb-2">{formatNumber(covidData.cases)}</p>
+                        <p className="text-green-400 text-sm mb-1">Today: +{formatNumber(covidData.todayCases)}</p>
                         <p className="text-gray-400 text-sm">Total confirmed cases worldwide</p>
+                        <p className="text-bat-yellow text-xs mt-2">Per Million: {formatNumber(covidData.casesPerOneMillion)}</p>
                       </CardContent>
                     </Card>
                     <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
@@ -265,6 +279,7 @@ const Health = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-3xl font-bold text-green-400 mb-2">{formatNumber(covidData.recovered)}</p>
+                        <p className="text-green-300 text-sm mb-1">Today: +{formatNumber(covidData.todayRecovered)}</p>
                         <p className="text-gray-400 text-sm">Total recoveries worldwide</p>
                       </CardContent>
                     </Card>
@@ -274,11 +289,69 @@ const Health = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-3xl font-bold text-red-400 mb-2">{formatNumber(covidData.deaths)}</p>
+                        <p className="text-red-300 text-sm mb-1">Today: +{formatNumber(covidData.todayDeaths)}</p>
                         <p className="text-gray-400 text-sm">Total deaths worldwide</p>
+                        <p className="text-bat-yellow text-xs mt-2">Per Million: {formatNumber(covidData.deathsPerOneMillion)}</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">🔴 Active Cases</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-orange-400 mb-2">{formatNumber(covidData.active)}</p>
+                        <p className="text-gray-400 text-sm">Currently active cases</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">🏥 Critical</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-red-500 mb-2">{formatNumber(covidData.critical)}</p>
+                        <p className="text-gray-400 text-sm">Critical condition</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                      <CardHeader>
+                        <CardTitle className="text-bat-yellow font-batman">🌍 Countries Affected</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-3xl font-bold text-blue-400 mb-2">{formatNumber(covidData.affectedCountries)}</p>
+                        <p className="text-gray-400 text-sm">Countries with reported cases</p>
                       </CardContent>
                     </Card>
                   </>
                 )}
+                
+                {nutritionData?.product && (
+                  <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 md:col-span-2 lg:col-span-3">
+                    <CardHeader>
+                      <CardTitle className="text-bat-yellow font-batman">🥗 Nutrition Analysis Sample</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid md:grid-cols-4 gap-4">
+                        <div className="bg-gotham-gray p-4 rounded-lg">
+                          <p className="text-gray-300 text-sm">Product</p>
+                          <p className="text-white font-bold text-sm">{nutritionData.product.product_name || 'Unknown'}</p>
+                        </div>
+                        <div className="bg-gotham-gray p-4 rounded-lg">
+                          <p className="text-gray-300 text-sm">Nutrition Grade</p>
+                          <p className="text-bat-yellow font-bold text-xl">{nutritionData.product.nutrition_grades?.toUpperCase() || 'N/A'}</p>
+                        </div>
+                        <div className="bg-gotham-gray p-4 rounded-lg">
+                          <p className="text-gray-300 text-sm">Eco Score</p>
+                          <p className="text-green-400 font-bold text-xl">{nutritionData.product.ecoscore_grade?.toUpperCase() || 'N/A'}</p>
+                        </div>
+                        <div className="bg-gotham-gray p-4 rounded-lg">
+                          <p className="text-gray-300 text-sm">Processing Level</p>
+                          <p className="text-orange-400 font-bold text-xl">Nova {nutritionData.product.nova_group || 'N/A'}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
                 {whoHealthData && whoHealthData.value && whoHealthData.value.length > 0 && (
                   <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 md:col-span-2 lg:col-span-3">
                     <CardHeader>
@@ -287,50 +360,13 @@ const Health = () => {
                     <CardContent>
                       <div className="grid md:grid-cols-3 gap-4">
                         {whoHealthData.value.slice(0, 6).map((stat, index) => (
-                          <div key={index} className="bg-gotham-gray p-4 rounded-lg">
+                          <div key={index} className="bg-gotham-gray p-4 rounded-lg transform transition-all duration-300 hover:scale-105">
                             <p className="text-gray-300 text-sm">{stat.SpatialDim}</p>
                             <p className="text-white font-bold">{stat.Value || stat.NumericValue}</p>
                             <p className="text-gray-400 text-xs">{stat.TimeDim}</p>
                           </div>
                         ))}
                       </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="research">
-              <div className="grid gap-6">
-                <h3 className="text-2xl font-batman text-bat-yellow mb-4">🔬 Latest Clinical Trials</h3>
-                {clinicalTrials.length > 0 ? (
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {clinicalTrials.slice(0, 4).map((trial, index) => (
-                      <Card key={index} className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
-                        <CardHeader>
-                          <CardTitle className="text-bat-yellow font-batman text-lg">
-                            {trial.protocolSection.identificationModule.briefTitle}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-2">
-                            <p className="text-gray-300 text-sm">
-                              <span className="text-bat-yellow">Status:</span> {trial.protocolSection.statusModule.overallStatus}
-                            </p>
-                            {trial.protocolSection.designModule && (
-                              <p className="text-gray-300 text-sm">
-                                <span className="text-bat-yellow">Type:</span> {trial.protocolSection.designModule.studyType}
-                              </p>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <Card className="gotham-card">
-                    <CardContent className="p-6">
-                      <p className="text-gray-400">Loading clinical trials data...</p>
                     </CardContent>
                   </Card>
                 )}
@@ -346,7 +382,7 @@ const Health = () => {
                   <CardContent>
                     <div className="space-y-4">
                       {dailyRoutine.map((item, index) => (
-                        <div key={index} className="flex items-center space-x-4 p-3 bg-gotham-gray rounded-lg">
+                        <div key={index} className="flex items-center space-x-4 p-3 bg-gotham-gray rounded-lg transform transition-all duration-300 hover:scale-105">
                           <span className="text-2xl">{item.icon}</span>
                           <div>
                             <span className="font-batman font-bold text-bat-yellow text-sm">{item.time}</span>

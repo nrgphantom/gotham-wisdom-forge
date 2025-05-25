@@ -46,7 +46,11 @@ const Index = () => {
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="mb-8">
             <div className="w-32 h-32 bg-bat-yellow rounded-full flex items-center justify-center mx-auto mb-6 bat-signal-glow">
-              <span className="text-6xl text-gotham-black">🦇</span>
+              <img 
+                src="/lovable-uploads/bb67fb31-0dc2-4b9e-8027-8461a0dfc6fc.png" 
+                alt="Batcoin Logo" 
+                className="w-20 h-20 object-contain"
+              />
             </div>
             <h1 className="font-batman font-black text-5xl md:text-7xl text-bat-yellow mb-4">
               BATCOIN
@@ -82,14 +86,12 @@ const Index = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <a 
-              href="https://batterminal.vercel.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link 
+              to="/tools"
               className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
             >
-              Terminal
-            </a>
+              TOOLS
+            </Link>
             <Link 
               to="/donate" 
               className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
@@ -137,7 +139,11 @@ const Index = () => {
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center mb-4">
             <div className="w-8 h-8 bg-bat-yellow rounded-full flex items-center justify-center mr-3">
-              <span className="text-gotham-black font-batman font-bold">🦇</span>
+              <img 
+                src="/lovable-uploads/bb67fb31-0dc2-4b9e-8027-8461a0dfc6fc.png" 
+                alt="Batcoin Logo" 
+                className="w-6 h-6 object-contain"
+              />
             </div>
             <span className="font-batman font-bold text-bat-yellow">BATCOIN</span>
           </div>
