@@ -8,48 +8,27 @@ const Tools = () => {
     {
       name: "Terminal",
       description: "Access the Batcomputer's advanced terminal interface",
-      icon: "💻",
+      image: "/lovable-uploads/fc4495a3-df42-4127-8aca-65cfe0b18a2d.png",
       url: "https://batterminal.vercel.app",
       category: "Development"
     },
     {
-      name: "Market Scanner",
-      description: "Real-time cryptocurrency and stock market analysis",
-      icon: "📊",
+      name: "WayneProtocol",
+      description: "Advanced Wayne Enterprises protocol system",
+      icon: "🏢",
       url: "#",
-      category: "Finance"
+      category: "Protocol"
     },
     {
-      name: "Health Monitor",
-      description: "Track global health metrics and personal wellness",
-      icon: "🏥",
+      name: "0xCineZed",
+      description: "Decentralized cinema and entertainment platform",
+      icon: "🎬",
       url: "#",
-      category: "Health"
-    },
-    {
-      name: "Justice Analytics",
-      description: "Crime pattern analysis and prediction tools",
-      icon: "⚖️",
-      url: "#",
-      category: "Justice"
-    },
-    {
-      name: "Wisdom Database",
-      description: "Access Batman's complete knowledge repository",
-      icon: "🧠",
-      url: "#",
-      category: "Knowledge"
-    },
-    {
-      name: "Mission Planner",
-      description: "Strategic mission planning and execution tools",
-      icon: "🎯",
-      url: "#",
-      category: "Operations"
+      category: "Entertainment"
     }
   ];
 
-  const categories = ["All", "Development", "Finance", "Health", "Justice", "Knowledge", "Operations"];
+  const categories = ["All", "Development", "Protocol", "Entertainment"];
 
   return (
     <div className="min-h-screen bg-gotham-black">
@@ -93,7 +72,15 @@ const Tools = () => {
                   <CardHeader>
                     <div className="flex items-center space-x-4">
                       <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                        {tool.icon}
+                        {tool.image ? (
+                          <img 
+                            src={tool.image} 
+                            alt={tool.name}
+                            className="w-16 h-16 object-cover rounded-lg"
+                          />
+                        ) : (
+                          tool.icon
+                        )}
                       </div>
                       <div>
                         <CardTitle className="text-bat-yellow font-batman group-hover:text-white transition-colors">
