@@ -22,7 +22,7 @@ const Tools = () => {
     {
       name: "0xCineZed",
       description: "Decentralized cinema and entertainment platform",
-      icon: "🎬",
+      image: "/lovable-uploads/222f5f7d-9efb-4462-a321-9cbf5b27916c.png",
       url: "#",
       category: "Entertainment"
     }
@@ -68,20 +68,18 @@ const Tools = () => {
                 rel={tool.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className="group"
               >
-                <Card className="gotham-card h-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
+                <Card className="gotham-card h-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 overflow-hidden">
+                  {/* Full Image Display */}
+                  <div className="w-full h-48 overflow-hidden">
+                    <img 
+                      src={tool.image} 
+                      alt={tool.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                  
                   <CardHeader>
-                    <div className="flex items-center space-x-4">
-                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                        {tool.image ? (
-                          <img 
-                            src={tool.image} 
-                            alt={tool.name}
-                            className="w-20 h-20 object-contain rounded-lg bg-gotham-gray p-2"
-                          />
-                        ) : (
-                          tool.icon
-                        )}
-                      </div>
+                    <div className="flex items-center justify-between">
                       <div>
                         <CardTitle className="text-bat-yellow font-batman group-hover:text-white transition-colors">
                           {tool.name}
@@ -93,10 +91,10 @@ const Tools = () => {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
+                    <p className="text-gray-300 group-hover:text-gray-200 transition-colors mb-4">
                       {tool.description}
                     </p>
-                    <div className="mt-4 flex items-center text-bat-yellow group-hover:text-white transition-colors">
+                    <div className="flex items-center text-bat-yellow group-hover:text-white transition-colors">
                       <span className="text-sm font-batman font-bold uppercase tracking-wide">
                         Access Tool
                       </span>
