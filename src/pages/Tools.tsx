@@ -28,8 +28,6 @@ const Tools = () => {
     }
   ];
 
-  const categories = ["All", "Development", "Protocol", "Entertainment"];
-
   return (
     <div className="min-h-screen bg-gotham-black">
       <Navigation />
@@ -44,18 +42,6 @@ const Tools = () => {
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               "The right tool for every mission. Access the complete arsenal of Gotham's technology."
             </p>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
-              <button
-                key={category}
-                className="px-6 py-2 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold text-sm uppercase tracking-wide"
-              >
-                {category}
-              </button>
-            ))}
           </div>
 
           {/* Tools Grid */}

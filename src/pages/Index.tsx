@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
@@ -45,7 +44,7 @@ const Index = () => {
         <BatSignal />
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="mb-8">
-            <div className="w-32 h-32 bg-bat-yellow rounded-full flex items-center justify-center mx-auto mb-6 bat-signal-glow">
+            <div className="w-32 h-32 flex items-center justify-center mx-auto mb-6">
               <img 
                 src="/lovable-uploads/bb67fb31-0dc2-4b9e-8027-8461a0dfc6fc.png" 
                 alt="Batcoin Logo" 
