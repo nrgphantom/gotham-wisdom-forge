@@ -1,9 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useIsMobile } from '../hooks/use-mobile';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { Menu } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
+  const isMobile = useIsMobile();
+  const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
     { path: '/', label: 'Home' },
@@ -12,6 +22,7 @@ const Navigation = () => {
     { path: '/health', label: 'Health' },
     { path: '/askbatman', label: 'Ask Batman' },
     { path: '/missions', label: 'Missions' },
+    { path: '/tools', label: 'Tools' },
     { path: '/donate', label: 'Donate' }
   ];
 
@@ -30,6 +41,7 @@ const Navigation = () => {
             <span className="font-batman font-bold text-xl text-bat-yellow group-hover:text-white transition-colors duration-300">BATCOIN</span>
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -45,6 +57,35 @@ const Navigation = () => {
               </Link>
             ))}
           </div>
+
+          {/* Mobile Navigation */}
+          {isMobile && (
+            <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+              <DropdownMenuTrigger className="md:hidden p-2 text-bat-yellow hover:text-white transition-colors">
+                <Menu size={24} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="end" 
+                className="w-48 bg-gotham-black border-gotham-gray shadow-xl"
+              >
+                {navItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link
+                      to={item.path}
+                      className={`w-full px-4 py-3 text-sm font-gotham uppercase tracking-wide transition-colors ${
+                        location.pathname === item.path 
+                          ? 'text-bat-yellow bg-gotham-gray/20' 
+                          : 'text-gray-300 hover:text-bat-yellow hover:bg-gotham-gray/10'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
     </nav>
