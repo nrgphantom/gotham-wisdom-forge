@@ -49,72 +49,72 @@ const Justice = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Enhanced justice wisdom with 10 unique cards
+  // Updated justice wisdom with fresh content
   const defaultWisdomQuotes = [
     {
-      title: "The Path of Justice",
-      quote: "Justice isn't just law. It's doing what's right when nobody's watching. Start by being disciplined with yourself.",
-      category: "Daily Discipline",
+      title: "The Foundation of Honor",
+      quote: "True justice begins with self-accountability. Before you judge others, master yourself. Your actions set the standard.",
+      category: "Self-Mastery",
       icon: "⚖️"
     },
     {
-      title: "Facing Fear",
-      quote: "Fear is real. So is courage. The difference is what you choose to feed. Face your fears head-on, every single day.",
-      category: "Mental Strength",
+      title: "Courage in Darkness",
+      quote: "Darkness reveals who you truly are. When no one is watching, your choices define your character. Choose wisely.",
+      category: "Character Building",
       icon: "🦇"
     },
     {
-      title: "Preparation Over Luck",
-      quote: "I don't rely on luck. I rely on preparation. Plan for every scenario, then execute with precision.",
-      category: "Strategic Thinking",
-      icon: "🎯"
-    },
-    {
-      title: "Integrity Above All",
-      quote: "Your word is your bond. Make promises you can keep, and keep every promise you make. Trust is earned in drops and lost in buckets.",
-      category: "Character",
+      title: "The Shield of Truth",
+      quote: "Lies are temporary solutions to permanent problems. Truth might hurt initially, but deception destroys everything eventually.",
+      category: "Integrity",
       icon: "🛡️"
     },
     {
-      title: "Perseverance Through Adversity",
-      quote: "When you fall, the question isn't whether you'll get back up. It's how quickly you'll learn from the fall.",
-      category: "Resilience",
-      icon: "💪"
-    },
-    {
-      title: "Protecting the Innocent",
-      quote: "Power without purpose is meaningless. Use your strength to protect those who cannot protect themselves.",
+      title: "Protecting the Vulnerable",
+      quote: "Your strength exists to protect those who cannot protect themselves. Use your power responsibly, not selfishly.",
       category: "Service",
       icon: "🏛️"
     },
     {
-      title: "The Weight of Choice",
-      quote: "Every choice has consequences. Think three moves ahead. Your decisions today shape the world tomorrow.",
-      category: "Decision Making",
-      icon: "🤔"
+      title: "Strategic Patience",
+      quote: "Rush to action and you'll stumble. Take time to understand the situation fully before making your move.",
+      category: "Wisdom",
+      icon: "🎯"
     },
     {
-      title: "Leading by Example",
-      quote: "Don't tell people what to do. Show them. Actions speak louder than words, and consistency speaks loudest of all.",
+      title: "Moral Courage",
+      quote: "Standing up for what's right when it's unpopular is the true test of your moral fiber. Be willing to stand alone.",
       category: "Leadership",
-      icon: "👥"
+      icon: "💪"
     },
     {
-      title: "Continuous Improvement",
-      quote: "Yesterday's training prepares you for today's challenges. Today's training prepares you for tomorrow's impossible.",
+      title: "Learning from Failure",
+      quote: "Every defeat teaches something that victory cannot. Embrace your failures as stepping stones to greatness.",
       category: "Growth",
       icon: "📈"
     },
     {
-      title: "Standing Alone",
-      quote: "Sometimes doing what's right means standing alone. Be prepared to be misunderstood by many to save even one.",
-      category: "Moral Courage",
+      title: "The Power of Example",
+      quote: "People watch what you do more than they listen to what you say. Be the example you want to see in the world.",
+      category: "Influence",
+      icon: "👥"
+    },
+    {
+      title: "Discipline as Freedom",
+      quote: "Discipline yourself so others don't have to. Self-control is the ultimate expression of personal freedom.",
+      category: "Self-Control",
+      icon: "🔒"
+    },
+    {
+      title: "Justice Never Sleeps",
+      quote: "The moment you stop fighting for what's right is the moment evil gains ground. Stay vigilant, stay committed.",
+      category: "Persistence",
       icon: "🌟"
     }
   ];
 
   const displayWisdomQuotes = wisdomQuotes.length > 0 ? wisdomQuotes : defaultWisdomQuotes;
-  const displayChallenge = dailyChallenge || "Stand up for someone who cannot stand up for themselves. Justice begins with the smallest acts of courage. Make one person's day better today.";
+  const displayChallenge = dailyChallenge || "Today, speak up for someone who cannot speak for themselves. Justice is not a spectator sport—it requires action.";
 
   return (
     <div className="min-h-screen bg-gotham-black">
@@ -128,7 +128,7 @@ const Justice = () => {
               JUSTICE PROTOCOLS
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              "The training is nothing. The will is everything. The will to act."
+              "Justice is not about revenge. It's about balance. It's about doing what's right, even when it's hard."
             </p>
           </div>
 
@@ -160,7 +160,7 @@ const Justice = () => {
               "{displayChallenge}"
             </p>
             <div className="text-gray-400 text-sm">
-              "The smallest act of justice can change someone's entire world."
+              "Small acts of justice ripple outward and change the world."
             </div>
           </div>
         </div>

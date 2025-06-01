@@ -27,7 +27,7 @@ const Finance = () => {
   });
   const [loading, setLoading] = useState<boolean>(true);
   const [dailyWisdom, setDailyWisdom] = useState<string>(
-    "The market rewards patience and punishes haste. Build your wealth like you build your character - one disciplined decision at a time."
+    "Wealth is not about having more money—it's about having more options. Build your financial fortress one brick at a time."
   );
   
   const fetchFinanceContent = async () => {
@@ -49,16 +49,16 @@ const Finance = () => {
   // Function to get a new daily financial wisdom based on the date
   const getDailyFinancialWisdom = () => {
     const wisdomList = [
-      "The market rewards patience and punishes haste. Build your wealth like you build your character - one disciplined decision at a time.",
-      "Fear others when they are greedy, be greedy when others fear. Market psychology is often backwards.",
-      "Your most important investment decision is asset allocation – how you divide your portfolio among stocks, bonds, and cash.",
-      "Long-term thinking is harder than people think, and rarer than people realize. Think in decades, not days.",
-      "Wealth isn't about having a lot of money; it's about having many options. Diversification protects those options.",
-      "The goal of investing isn't to minimize risk – it's to maximize returns for the risk you're willing to take.",
-      "The four most dangerous words in investing are: 'this time it's different.' History repeats itself.",
-      "Markets can remain irrational longer than you can remain solvent. Never bet everything on one position.",
-      "The best time to invest was yesterday. The second best time is now. Delaying only compounds your missed opportunities.",
-      "Your portfolio is like your utility belt – each tool has a specific purpose. Don't expect a batarang to do what a grappling hook should."
+      "Wealth is not about having more money—it's about having more options. Build your financial fortress one brick at a time.",
+      "The market is driven by emotion, but wealth is built through logic. Stay rational when others panic.",
+      "Your net worth is not your self-worth, but financial freedom gives you the power to help others.",
+      "Invest in assets that generate income while you sleep. Passive income is the path to true freedom.",
+      "The biggest risk is not taking any risk at all. Calculated risks lead to extraordinary returns.",
+      "Time in the market beats timing the market. Consistency trumps perfection every time.",
+      "Your money should work harder than you do. Make every dollar a soldier in your wealth army.",
+      "Debt is a tool when used wisely, a weapon when used foolishly. Master the difference.",
+      "Financial intelligence is more valuable than a high income. Learn the language of money.",
+      "Build multiple income streams like you build multiple escape routes. Never depend on just one."
     ];
     
     // Get a wisdom based on the day of the year (0-364)
@@ -85,189 +85,189 @@ const Finance = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Enhanced finance tips with 10 rookie and 20 Wayne protocol tips
+  // Updated finance tips with fresh content
   const defaultRookieTips = [
     {
-      title: "Emergency Fund First",
-      quote: "Before you invest a single dollar, build a fortress. Keep 6 months of expenses saved. You never know when you'll need to disappear.",
-      category: "Safety Net",
+      title: "Financial Foundation",
+      quote: "Build your emergency fund before you build anything else. A secure foundation allows you to take calculated risks.",
+      category: "Security",
       icon: "🛡️"
     },
     {
-      title: "Track Every Dollar",
-      quote: "Know where your money goes. Every criminal leaves a trail, and so does every expense. Track it all.",
+      title: "Budget Like Batman",
+      quote: "Every dollar has a mission. Track your spending like you track criminals—with precision and purpose.",
       category: "Budgeting",
       icon: "📊"
     },
     {
-      title: "Start Investing Early",
-      quote: "Time is your greatest weapon. Start investing young, and let compound interest do the heavy lifting for decades.",
-      category: "Long-term Growth",
+      title: "The Compound Effect",
+      quote: "Small investments made consistently over time create massive wealth. Start today, no matter how small the amount.",
+      category: "Investing",
       icon: "⏰"
     },
     {
-      title: "Automate Your Savings",
-      quote: "Set up automatic transfers. Remove emotion from the equation. Let discipline work while you sleep.",
-      category: "Automation",
-      icon: "🤖"
-    },
-    {
-      title: "Avoid High-Interest Debt",
-      quote: "Credit card debt is financial kryptonite. Pay it off immediately. Never carry a balance if you can help it.",
+      title: "Debt Elimination Protocol",
+      quote: "High-interest debt is financial kryptonite. Attack it aggressively before it weakens your financial strength.",
       category: "Debt Management",
       icon: "💳"
     },
     {
-      title: "Index Funds First",
-      quote: "Start with broad market index funds. They're boring, reliable, and perfect for beginners. Boring wins in investing.",
+      title: "Automated Wealth Building",
+      quote: "Set up automatic transfers to savings and investments. Remove emotion and excuses from wealth building.",
+      category: "Automation",
+      icon: "🤖"
+    },
+    {
+      title: "Index Fund Strategy",
+      quote: "Start with broad market index funds. They're boring, reliable, and perfect for building long-term wealth.",
       category: "Investment Strategy",
       icon: "📈"
     },
     {
       title: "Dollar-Cost Averaging",
-      quote: "Invest the same amount regularly, regardless of market conditions. It smooths out volatility and builds discipline.",
-      category: "Investment Strategy",
+      quote: "Invest the same amount regularly regardless of market conditions. This strategy smooths volatility and builds discipline.",
+      category: "Investment Technique",
       icon: "📅"
     },
     {
-      title: "Learn Before You Leap",
-      quote: "Study every investment before you make it. Ignorance is expensive. Knowledge is profitable.",
-      category: "Education",
+      title: "Financial Education",
+      quote: "Invest in your financial knowledge first. An educated investor makes better decisions than a wealthy fool.",
+      category: "Learning",
       icon: "📚"
     },
     {
-      title: "Live Below Your Means",
-      quote: "Spend less than you earn. The gap between income and expenses is where wealth is built.",
+      title: "Living Below Your Means",
+      quote: "True wealth comes from spending less than you earn. The gap between income and expenses is where fortunes are built.",
       category: "Lifestyle",
       icon: "🏠"
     },
     {
-      title: "Start a Side Hustle",
-      quote: "Create additional income streams. Your day job pays the bills, but side income builds wealth.",
-      category: "Income Growth",
+      title: "Multiple Income Streams",
+      quote: "Don't depend on a single source of income. Build multiple revenue streams to create financial security.",
+      category: "Income Diversification",
       icon: "💼"
     }
   ];
 
   const defaultWayneTips = [
     {
-      title: "Asset Allocation Strategy",
-      quote: "Spread your investments across asset classes like spreading operations across Gotham. Diversification is survival.",
-      category: "Risk Management",
+      title: "Strategic Asset Allocation",
+      quote: "Diversify across asset classes like diversifying your skills. Real estate, stocks, bonds, commodities—each serves a purpose.",
+      category: "Portfolio Strategy",
       icon: "🏢"
     },
     {
       title: "Market Psychology Mastery",
-      quote: "Fear and greed move markets. When others panic, that's when opportunities reveal themselves. Be the calm in the storm.",
-      category: "Strategic Investment",
+      quote: "Fear and greed drive markets more than fundamentals. When others are fearful, be greedy. When others are greedy, be cautious.",
+      category: "Behavioral Finance",
       icon: "🧠"
     },
     {
       title: "Passive Income Empire",
-      quote: "Build systems that work while you sleep. Dividend stocks, REITs, businesses. True wealth comes from assets, not labor.",
-      category: "Wealth Building",
+      quote: "Build systems that generate money while you sleep. Dividend stocks, rental properties, business ownership—true wealth is passive.",
+      category: "Income Generation",
       icon: "🏭"
     },
     {
-      title: "Tax Optimization",
-      quote: "Minimize what you owe legally. Use 401k, IRA, HSA. Every tax dollar saved is a dollar that compounds for decades.",
-      category: "Tax Strategy",
+      title: "Tax Optimization Strategies",
+      quote: "It's not what you make, it's what you keep. Master tax-advantaged accounts and legal tax reduction strategies.",
+      category: "Tax Planning",
       icon: "📋"
     },
     {
-      title: "International Diversification",
-      quote: "Don't put all your money in one country. Global markets provide opportunities and reduce single-nation risk.",
-      category: "Global Strategy",
+      title: "Global Investment Approach",
+      quote: "Don't limit yourself to domestic markets. International diversification reduces risk and increases opportunities.",
+      category: "International Investing",
       icon: "🌍"
     },
     {
-      title: "Alternative Investments",
-      quote: "Real estate, commodities, private equity. Build a portfolio as diverse as your skill set.",
-      category: "Advanced Assets",
+      title: "Alternative Investment Mastery",
+      quote: "Beyond stocks and bonds lies a world of opportunities. REITs, commodities, private equity—expand your arsenal.",
+      category: "Alternative Assets",
       icon: "🏗️"
     },
     {
-      title: "Leverage Wisely",
-      quote: "Debt can accelerate wealth or destroy it. Use leverage like you use explosives - carefully and with precise timing.",
+      title: "Leverage and Risk Management",
+      quote: "Leverage can amplify returns or amplify losses. Use debt strategically, with proper risk management protocols in place.",
       category: "Advanced Strategy",
       icon: "⚡"
     },
     {
-      title: "Business Ownership",
-      quote: "The ultimate wealth builder is owning businesses. Start, buy, or invest in companies that solve real problems.",
-      category: "Entrepreneurship",
+      title: "Business Ownership Philosophy",
+      quote: "The ultimate wealth builder is owning productive assets. Buy businesses that solve problems and generate cash flow.",
+      category: "Business Investment",
       icon: "🏪"
     },
     {
-      title: "Value Investing",
-      quote: "Buy quality companies when they're undervalued. Be patient. Great investments take time to mature.",
-      category: "Stock Strategy",
+      title: "Value Investing Principles",
+      quote: "Buy quality companies when they're undervalued. Be patient. Great investments take time to reach their potential.",
+      category: "Investment Philosophy",
       icon: "💎"
     },
     {
-      title: "Economic Cycles",
-      quote: "Understand market cycles. Bear markets create millionaires. Bull markets reveal them. Position accordingly.",
+      title: "Economic Cycle Navigation",
+      quote: "Understand economic cycles and position accordingly. Recessions create millionaires who know how to capitalize on chaos.",
       category: "Market Timing",
       icon: "🔄"
     },
     {
-      title: "Estate Planning",
-      quote: "Plan for wealth transfer. Protect your legacy like you protect Gotham. Trusts, wills, insurance - all weapons in your arsenal.",
+      title: "Estate Planning Excellence",
+      quote: "Plan for wealth transfer across generations. Trusts, wills, tax strategies—protect your legacy like you protect Gotham.",
       category: "Legacy Planning",
       icon: "🏛️"
     },
     {
-      title: "Cryptocurrency Strategy",
-      quote: "Digital assets are the future. Allocate 5-10% of your portfolio. High risk, high reward. Diversify within crypto too.",
+      title: "Cryptocurrency Integration",
+      quote: "Digital assets are reshaping finance. Allocate 5-10% to crypto, but treat it as high-risk, high-reward speculation.",
       category: "Digital Assets",
       icon: "₿"
     },
     {
-      title: "Options Trading",
-      quote: "Options can hedge risk or generate income. Learn covered calls, protective puts. Power requires precision.",
+      title: "Options and Derivatives",
+      quote: "Advanced instruments for advanced investors. Use options to hedge risk or generate income, never for speculation alone.",
       category: "Advanced Trading",
       icon: "📊"
     },
     {
-      title: "Private Equity Access",
-      quote: "Accredited investors can access private markets. Higher returns, higher minimums. Build wealth to access better opportunities.",
-      category: "Elite Investing",
+      title: "Private Market Access",
+      quote: "Private equity and venture capital offer superior returns for qualified investors. Build wealth to access better opportunities.",
+      category: "Private Investing",
       icon: "🏦"
     },
     {
-      title: "Inflation Hedging",
-      quote: "Protect against currency debasement. Real estate, commodities, inflation-protected bonds. Preserve purchasing power.",
-      category: "Economic Defense",
+      title: "Inflation Defense Strategy",
+      quote: "Inflation erodes purchasing power silently. Invest in assets that appreciate faster than currency debasement.",
+      category: "Inflation Hedging",
       icon: "🛡️"
     },
     {
-      title: "Quantitative Analysis",
-      quote: "Use data to drive decisions. P/E ratios, debt-to-equity, ROE. Numbers don't lie, emotions do.",
-      category: "Analysis",
+      title: "Quantitative Analysis Mastery",
+      quote: "Let data drive decisions, not emotions. Financial ratios, metrics, and models reveal what marketing cannot hide.",
+      category: "Financial Analysis",
       icon: "📉"
     },
     {
-      title: "Sector Rotation",
-      quote: "Different sectors lead at different times. Technology, healthcare, energy. Rotate capital based on economic cycles.",
+      title: "Sector Rotation Tactics",
+      quote: "Different sectors lead at different economic phases. Rotate capital based on market cycles and economic indicators.",
       category: "Tactical Allocation",
       icon: "🔄"
     },
     {
-      title: "Risk Parity",
-      quote: "Equal risk contribution from each asset class. Not equal dollar amounts. Balance risk, not just allocation.",
+      title: "Risk Parity Framework",
+      quote: "Balance risk contribution, not just dollar allocation. Each asset class should contribute equally to portfolio risk.",
       category: "Risk Management",
       icon: "⚖️"
     },
     {
-      title: "Alpha Generation",
-      quote: "Seek returns above the market. Research, analysis, contrarian thinking. Beat the market through superior intelligence.",
-      category: "Performance",
+      title: "Alpha Generation Strategies",
+      quote: "Seek returns above market benchmarks through research, analysis, and contrarian thinking. Alpha separates good from great.",
+      category: "Performance Enhancement",
       icon: "🎯"
     },
     {
-      title: "Family Office Strategy",
-      quote: "Multi-generational wealth requires professional management. When assets exceed $100M, consider family office structures.",
-      category: "Ultra High Net Worth",
+      title: "Ultra-High Net Worth Management",
+      quote: "At $100M+, consider family office structures. Multi-generational wealth requires institutional-level management.",
+      category: "Wealth Management",
       icon: "👑"
     }
   ];
@@ -288,7 +288,7 @@ const Finance = () => {
               GOTHAM FINANCE
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              "It's not about the money. It's about sending a message. But money helps."
+              "Money is a tool. When you have it, doors open. When you don't, you become the tool of others."
             </p>
           </div>
 

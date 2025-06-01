@@ -133,80 +133,80 @@ const Health = () => {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Enhanced health protocols with 10 unique cards
+  // Updated health protocols with fresh content
   const defaultHealthProtocols = [
     {
-      title: "Physical Foundation",
-      quote: "A strong mind needs a strong body. Train daily. Push beyond your limits. Your body is your primary weapon.",
-      category: "Fitness",
+      title: "Physical Excellence",
+      quote: "Your body is your primary weapon and defense system. Train it daily with the respect it deserves—strength, endurance, flexibility.",
+      category: "Physical Training",
       icon: "💪"
     },
     {
-      title: "Recovery Protocols",
-      quote: "Even Batman sleeps. Your body repairs itself in rest. 7-8 hours of quality sleep is non-negotiable.",
-      category: "Recovery",
+      title: "Recovery Mastery",
+      quote: "Elite performance requires elite recovery. 7-9 hours of quality sleep isn't luxury—it's mission-critical maintenance.",
+      category: "Sleep & Recovery",
       icon: "😴"
     },
     {
-      title: "Mental Discipline",
-      quote: "Control your thoughts, control your life. Meditation isn't weakness—it's mental armor against chaos.",
+      title: "Mental Fortification",
+      quote: "A clear mind cuts through chaos like a blade through shadow. Daily meditation builds unshakeable mental resilience.",
       category: "Mental Health",
       icon: "🧠"
     },
     {
-      title: "Nutrition as Fuel",
-      quote: "Fuel your body like the machine it is. Clean food, clean mind, clean performance. You are what you eat.",
-      category: "Diet",
+      title: "Nutritional Intelligence",
+      quote: "Fuel your body like the high-performance machine it is. Every meal is either medicine or poison—choose wisely.",
+      category: "Nutrition",
       icon: "🥗"
     },
     {
-      title: "Cardiovascular Mastery",
-      quote: "Your heart is your engine. Cardio training builds the endurance to outlast any enemy, including yourself.",
-      category: "Cardio",
+      title: "Cardiovascular Dominance",
+      quote: "Your heart pumps life through your veins. Cardio training builds the endurance to never give up when it matters most.",
+      category: "Cardio Fitness",
       icon: "❤️"
     },
     {
-      title: "Strength Building",
-      quote: "Strength isn't just physical. Every rep builds mental resilience. Lift weights to lift your spirit.",
-      category: "Strength",
+      title: "Strength Foundation",
+      quote: "Physical strength builds mental strength. Every rep in the gym prepares you for battles beyond the gym.",
+      category: "Strength Training",
       icon: "🏋️"
     },
     {
-      title: "Flexibility & Mobility",
-      quote: "A flexible body houses a flexible mind. Stretch your muscles and stretch your limits.",
-      category: "Mobility",
+      title: "Mobility & Flexibility",
+      quote: "A flexible body houses a flexible mind. Daily stretching prevents injury and maintains peak physical readiness.",
+      category: "Flexibility",
       icon: "🤸"
     },
     {
-      title: "Stress Management",
-      quote: "Stress is inevitable. How you handle it defines you. Breathe through the chaos, think through the pressure.",
-      category: "Stress Relief",
+      title: "Stress Transformation",
+      quote: "Stress is inevitable, but suffering is optional. Learn to transform pressure into power through breathing and mindfulness.",
+      category: "Stress Management",
       icon: "🕯️"
     },
     {
       title: "Hydration Protocol",
-      quote: "Water is life. Dehydration clouds judgment and weakens resolve. Drink like your mission depends on it.",
+      quote: "Water is life's most essential resource. Proper hydration sharpens focus, boosts energy, and optimizes every bodily function.",
       category: "Hydration",
       icon: "💧"
     },
     {
       title: "Injury Prevention",
-      quote: "The best injury is the one that never happens. Warm up properly, cool down completely, listen to your body.",
-      category: "Prevention",
+      quote: "The best fight is the one you avoid. Warm up properly, listen to your body, and prevent injuries before they happen.",
+      category: "Injury Prevention",
       icon: "🛡️"
     }
   ];
 
   const displayHealthProtocols = healthProtocols.length > 0 ? healthProtocols : defaultHealthProtocols;
-  const displayChallenge = dailyChallenge || "Complete 100 push-ups today. Break them into sets throughout the day. Your future self will thank you for every single rep.";
+  const displayChallenge = dailyChallenge || "Complete a 30-minute workout today. It doesn't matter what kind—push-ups, running, yoga. Your future self depends on what you do today.";
 
   const dailyRoutine = [
-    { time: "5:00 AM", activity: "Wake up, no snooze", icon: "⏰" },
-    { time: "5:30 AM", activity: "Physical training", icon: "🏃" },
-    { time: "7:00 AM", activity: "Meditation/Planning", icon: "🧘" },
-    { time: "8:00 AM", activity: "Nutritious breakfast", icon: "🍳" },
-    { time: "10:00 PM", activity: "Wind down routine", icon: "📖" },
-    { time: "11:00 PM", activity: "Sleep (no devices)", icon: "😴" }
+    { time: "5:00 AM", activity: "Rise with purpose, no snooze", icon: "⏰" },
+    { time: "5:30 AM", activity: "Physical training session", icon: "🏃" },
+    { time: "7:00 AM", activity: "Meditation & planning", icon: "🧘" },
+    { time: "8:00 AM", activity: "High-protein breakfast", icon: "🍳" },
+    { time: "10:00 PM", activity: "Technology shutdown", icon: "📖" },
+    { time: "11:00 PM", activity: "Quality sleep begins", icon: "😴" }
   ];
 
   const formatNumber = (num: number) => {
@@ -225,7 +225,7 @@ const Health = () => {
               BAT-HEALTH PROTOCOL
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              "Your body is your temple. Your mind is your weapon. Train both with equal dedication."
+              "Take care of your body. It's the only place you have to live. Make it a fortress, not a weakness."
             </p>
           </div>
 
@@ -377,7 +377,7 @@ const Health = () => {
               <div className="grid lg:grid-cols-2 gap-8">
                 <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
                   <CardHeader>
-                    <CardTitle className="text-bat-yellow font-batman">📊 Daily Routine</CardTitle>
+                    <CardTitle className="text-bat-yellow font-batman">📊 Optimal Daily Routine</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -396,20 +396,20 @@ const Health = () => {
 
                 <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20">
                   <CardHeader>
-                    <CardTitle className="text-bat-yellow font-batman">🎯 Gotham Strength Challenge</CardTitle>
+                    <CardTitle className="text-bat-yellow font-batman">🎯 Today's Health Challenge</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-6">
                       <div className="text-center">
                         <div className="text-4xl mb-4">🔥</div>
                         <h3 className="font-batman font-bold text-xl text-white mb-2">
-                          DAILY PROTOCOL
+                          DAILY HEALTH MISSION
                         </h3>
                         <p className="text-gray-300 mb-4">
                           {displayChallenge}
                         </p>
                         <div className="text-gray-400 text-sm">
-                          "Discipline is choosing between what you want now and what you want most."
+                          "Every day you don't train, someone else is getting stronger. Don't let that someone be your competition."
                         </div>
                       </div>
                     </div>
