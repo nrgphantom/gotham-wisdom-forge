@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
+import { Instagram, X, MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const features = [
@@ -69,6 +71,18 @@ const Index = () => {
             </p>
           </div>
 
+          {/* BATPAPER Button - Above all others */}
+          <div className="flex justify-center mb-8">
+            <a 
+              href="https://drive.google.com/file/d/1PcFeIn5dJT3p5im3NOcHWsOmALlEBLEh/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="batman-button px-8 py-4 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide"
+            >
+              BATPAPER
+            </a>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Link 
               to="/askbatman" 
@@ -97,6 +111,30 @@ const Index = () => {
             >
               Donate
             </Link>
+          </div>
+
+          {/* Social Media Links */}
+          <div className="flex justify-center gap-6 mb-8">
+            <a 
+              href="https://www.instagram.com/wayneprotocol/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+            >
+              <Instagram size={24} />
+            </a>
+            <a 
+              href="#"
+              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+            >
+              <X size={24} />
+            </a>
+            <a 
+              href="#"
+              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+            >
+              <MessageCircle size={24} />
+            </a>
           </div>
         </div>
       </section>

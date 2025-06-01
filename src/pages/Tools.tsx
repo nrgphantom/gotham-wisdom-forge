@@ -25,6 +25,13 @@ const Tools = () => {
       image: "/lovable-uploads/222f5f7d-9efb-4462-a321-9cbf5b27916c.png",
       url: "https://cinezed.vercel.app",
       category: "Entertainment"
+    },
+    {
+      name: "EulerFlow",
+      description: "Precision futures trading calculator for every position",
+      image: "/lovable-uploads/73be7392-13ed-4a8c-9635-13591e7fc4e4.png",
+      url: "#",
+      category: "Trading"
     }
   ];
 
@@ -70,9 +77,6 @@ const Tools = () => {
                         <CardTitle className="text-bat-yellow font-batman group-hover:text-white transition-colors">
                           {tool.name}
                         </CardTitle>
-                        <span className="text-xs text-gray-500 uppercase tracking-wide">
-                          {tool.category}
-                        </span>
                       </div>
                     </div>
                   </CardHeader>
