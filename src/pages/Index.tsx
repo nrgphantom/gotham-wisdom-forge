@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
-import { Instagram, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const features = [
@@ -121,7 +121,11 @@ const Index = () => {
               rel="noopener noreferrer"
               className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
             >
-              <Instagram size={24} />
+              <img 
+                src="/lovable-uploads/78bfa5d8-06d0-4ea5-826b-08628ea7e80e.png" 
+                alt="Instagram" 
+                className="w-6 h-6 object-contain"
+              />
             </a>
             <a 
               href="#"
@@ -143,6 +147,24 @@ const Index = () => {
                 className="w-6 h-6 object-contain"
               />
             </a>
+          </div>
+
+          {/* Launch Announcement Card */}
+          <div className="max-w-md mx-auto mb-16">
+            <div className="gotham-card p-6 rounded-lg bg-gradient-to-br from-bat-yellow/20 to-bat-yellow/5 border-2 border-bat-yellow/30">
+              <div className="text-center">
+                <div className="text-3xl mb-3">🚀</div>
+                <h3 className="font-batman font-bold text-xl text-bat-yellow mb-2">
+                  LAUNCHING SOON
+                </h3>
+                <p className="text-gray-300 font-semibold mb-1">
+                  BATCOIN ($BAT)
+                </p>
+                <p className="text-bat-yellow font-batman font-bold text-lg">
+                  18 NOV 2025
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
