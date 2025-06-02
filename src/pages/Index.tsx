@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
-import { Instagram, X, MessageCircle } from 'lucide-react';
+import { Instagram, MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const features = [
@@ -127,7 +127,11 @@ const Index = () => {
               href="#"
               className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
             >
-              <X size={24} />
+              <img 
+                src="/lovable-uploads/d380be6f-3a43-4700-95da-eb8ff172ce0d.png" 
+                alt="X (Twitter)" 
+                className="w-6 h-6 object-contain"
+              />
             </a>
             <a 
               href="#"

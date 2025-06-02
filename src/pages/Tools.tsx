@@ -30,7 +30,7 @@ const Tools = () => {
       name: "EulerFlow",
       description: "Precision futures trading calculator for every position",
       image: "/lovable-uploads/73be7392-13ed-4a8c-9635-13591e7fc4e4.png",
-      url: "#",
+      url: "https://eulerflow.vercel.app",
       category: "Trading"
     }
   ];
