@@ -128,7 +128,7 @@ const Index = () => {
               className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
             >
               <img 
-                src="/lovable-uploads/d380be6f-3a43-4700-95da-eb8ff172ce0d.png" 
+                src="/lovable-uploads/34235c32-e799-41db-a83b-9234937e64a7.png" 
                 alt="X (Twitter)" 
                 className="w-6 h-6 object-contain"
               />
