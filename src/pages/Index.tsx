@@ -137,7 +137,11 @@ const Index = () => {
               href="#"
               className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
             >
-              <MessageCircle size={24} />
+              <img 
+                src="/lovable-uploads/9d47c3b6-f312-464d-8401-470b8e5ec2ab.png" 
+                alt="Telegram" 
+                className="w-6 h-6 object-contain"
+              />
             </a>
           </div>
         </div>
