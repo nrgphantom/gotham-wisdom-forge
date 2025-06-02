@@ -113,8 +113,26 @@ const Index = () => {
             </Link>
           </div>
 
+          {/* Launch Announcement Card */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="gotham-card p-6 rounded-lg bg-gradient-to-br from-bat-yellow/20 to-bat-yellow/5 border-2 border-bat-yellow/30 hover:border-bat-yellow/50 hover:bg-gradient-to-br hover:from-bat-yellow/30 hover:to-bat-yellow/10 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-bat-yellow/20">
+              <div className="text-center">
+                <div className="text-3xl mb-3">🚀</div>
+                <h3 className="font-batman font-bold text-xl text-bat-yellow mb-2">
+                  LAUNCHING SOON
+                </h3>
+                <p className="text-gray-300 font-semibold mb-1">
+                  BATCOIN ($BAT)
+                </p>
+                <p className="text-bat-yellow font-batman font-bold text-lg">
+                  18 NOV 2025
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Social Media Links */}
-          <div className="flex justify-center gap-6 mb-8">
+          <div className="flex justify-center gap-6 mb-16">
             <a 
               href="https://www.instagram.com/wayneprotocol/"
               target="_blank"
@@ -147,24 +165,6 @@ const Index = () => {
                 className="w-6 h-6 object-contain"
               />
             </a>
-          </div>
-
-          {/* Launch Announcement Card */}
-          <div className="max-w-md mx-auto mb-16">
-            <div className="gotham-card p-6 rounded-lg bg-gradient-to-br from-bat-yellow/20 to-bat-yellow/5 border-2 border-bat-yellow/30">
-              <div className="text-center">
-                <div className="text-3xl mb-3">🚀</div>
-                <h3 className="font-batman font-bold text-xl text-bat-yellow mb-2">
-                  LAUNCHING SOON
-                </h3>
-                <p className="text-gray-300 font-semibold mb-1">
-                  BATCOIN ($BAT)
-                </p>
-                <p className="text-bat-yellow font-batman font-bold text-lg">
-                  18 NOV 2025
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
