@@ -27,15 +27,6 @@ const queryClient = new QueryClient({
           return false;
         }
         return failureCount < 2;
-      },
-      onError: (error) => {
-        console.error('Query error:', error);
-        // Redirect to home on critical errors
-        if (error instanceof Error && error.message.includes('Critical')) {
-          setTimeout(() => {
-            window.location.href = '/';
-          }, 1000);
-        }
       }
     }
   }
