@@ -1,10 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import Navigation from '../components/Navigation';
 
 const Missions = () => {
-  const [completedMissions, setCompletedMissions] = useState<Set<number>>(new Set());
-
   const dailyMissions = [
     {
       id: 1,
@@ -151,8 +149,6 @@ const Missions = () => {
     }
   };
 
-  const totalCompleted = completedMissions.size;
-
   return (
     <div className="min-h-screen bg-gotham-black">
       <Navigation />
@@ -160,7 +156,7 @@ const Missions = () => {
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-6">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h1 className="font-batman font-black text-4xl md:text-6xl text-bat-yellow mb-4">
               GOTHAM MISSIONS
             </h1>
@@ -169,18 +165,8 @@ const Missions = () => {
             </p>
           </div>
 
-          {/* Stats Dashboard */}
-          <div className="flex justify-center mb-12">
-            <div className="gotham-card p-6 rounded-lg text-center w-full max-w-xs">
-              <div className="text-3xl mb-2">🎯</div>
-              <h3 className="font-batman font-bold text-bat-yellow text-lg">Missions Completed</h3>
-              <p className="text-2xl text-white font-bold">{totalCompleted}</p>
-              <p className="text-gray-400 text-sm mt-2">Progress builds legends</p>
-            </div>
-          </div>
-
           {/* Daily Missions */}
-          <div className="mb-12">
+          <div className="mb-16">
             <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-6">
               DAILY MISSIONS
             </h2>
@@ -208,7 +194,7 @@ const Missions = () => {
           </div>
 
           {/* Weekly Missions */}
-          <div className="mb-12">
+          <div className="mb-16">
             <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-6">
               WEEKLY MISSIONS
             </h2>
@@ -236,7 +222,7 @@ const Missions = () => {
           </div>
 
           {/* Monthly Missions */}
-          <div className="mb-12">
+          <div className="mb-16">
             <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-6">
               MONTHLY MISSIONS
             </h2>
@@ -264,7 +250,7 @@ const Missions = () => {
           </div>
 
           {/* Motivational Footer */}
-          <div className="text-center mt-16">
+          <div className="text-center">
             <div className="gotham-card p-8 rounded-lg">
               <h3 className="font-batman font-bold text-xl text-bat-yellow mb-4">
                 THE MISSION PROTOCOL

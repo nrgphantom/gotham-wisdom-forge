@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      strategies: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          name: string
+          performance: number | null
+          strategy_code: string
+          training_status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          performance?: number | null
+          strategy_code: string
+          training_status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          performance?: number | null
+          strategy_code?: string
+          training_status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       torrents: {
         Row: {
           category: string
@@ -50,6 +86,44 @@ export type Database = {
           uploaded_date?: string
         }
         Relationships: []
+      }
+      training_sessions: {
+        Row: {
+          completed_at: string | null
+          id: string
+          metrics: Json | null
+          progress: number | null
+          started_at: string
+          status: string | null
+          strategy_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          id?: string
+          metrics?: Json | null
+          progress?: number | null
+          started_at?: string
+          status?: string | null
+          strategy_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          metrics?: Json | null
+          progress?: number | null
+          started_at?: string
+          status?: string | null
+          strategy_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_sessions_strategy_id_fkey"
+            columns: ["strategy_id"]
+            isOneToOne: false
+            referencedRelation: "strategies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
