@@ -10,12 +10,16 @@ import {
 } from './ui/dropdown-menu';
 import { Menu } from 'lucide-react';
 
-const Navigation = () => {
+interface NavigationProps {
+  isRestricted?: boolean;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ isRestricted = false }) => {
   const location = useLocation();
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = [
+  const allNavItems = [
     { path: '/', label: 'Home' },
     { path: '/justice', label: 'Justice' },
     { path: '/finance', label: 'Finance' },
@@ -24,6 +28,9 @@ const Navigation = () => {
     { path: '/tools', label: 'Tools' },
     { path: '/donate', label: 'Donate' }
   ];
+
+  // Show only Home when restricted
+  const navItems = isRestricted ? [{ path: '/', label: 'Home' }] : allNavItems;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gotham-black/80 backdrop-blur-md border-b border-gotham-gray">

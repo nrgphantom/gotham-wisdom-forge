@@ -5,7 +5,11 @@ import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
 import { MessageCircle } from 'lucide-react';
 
-const Index = () => {
+interface IndexProps {
+  isRestricted?: boolean;
+}
+
+const Index: React.FC<IndexProps> = ({ isRestricted = false }) => {
   const features = [
     {
       title: "Justice Protocols",
@@ -39,7 +43,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <Navigation />
+      <Navigation isRestricted={isRestricted} />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -71,7 +75,7 @@ const Index = () => {
             </p>
           </div>
 
-          {/* BATPAPER Button - Above all others */}
+          {/* BATPAPER Button - Always visible */}
           <div className="flex justify-center mb-8">
             <a 
               href="https://drive.google.com/file/d/1PcFeIn5dJT3p5im3NOcHWsOmALlEBLEh/view?usp=drive_link"
@@ -83,29 +87,34 @@ const Index = () => {
             </a>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Link 
-              to="/askbatman" 
-              className="batman-button px-8 py-4 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide"
-            >
-              Consult Batman
-            </Link>
-          </div>
+          {/* Restricted content - only show when not restricted */}
+          {!isRestricted && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <Link 
+                  to="/askbatman" 
+                  className="batman-button px-8 py-4 rounded-full font-batman font-bold text-gotham-black uppercase tracking-wide"
+                >
+                  Consult Batman
+                </Link>
+              </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link 
-              to="/tools"
-              className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
-            >
-              TOOLS
-            </Link>
-            <Link 
-              to="/donate" 
-              className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
-            >
-              Donate
-            </Link>
-          </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <Link 
+                  to="/tools"
+                  className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+                >
+                  TOOLS
+                </Link>
+                <Link 
+                  to="/donate" 
+                  className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
+                >
+                  Donate
+                </Link>
+              </div>
+            </>
+          )}
 
           {/* Launch Announcement Card */}
           <div className="max-w-md mx-auto mb-8">
@@ -125,75 +134,79 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Social Media Links */}
-          <div className="flex justify-center gap-6 mb-16">
-            <a 
-              href="https://www.instagram.com/wayneprotocol/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
-            >
-              <img 
-                src="/lovable-uploads/78bfa5d8-06d0-4ea5-826b-08628ea7e80e.png" 
-                alt="Instagram" 
-                className="w-6 h-6 object-contain"
-              />
-            </a>
-            <a 
-              href="#"
-              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
-            >
-              <img 
-                src="/lovable-uploads/34235c32-e799-41db-a83b-9234937e64a7.png" 
-                alt="X (Twitter)" 
-                className="w-6 h-6 object-contain"
-              />
-            </a>
-            <a 
-              href="#"
-              className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
-            >
-              <img 
-                src="/lovable-uploads/9d47c3b6-f312-464d-8401-470b8e5ec2ab.png" 
-                alt="Telegram" 
-                className="w-6 h-6 object-contain"
-              />
-            </a>
-          </div>
+          {/* Social Media Links - Hidden when restricted */}
+          {!isRestricted && (
+            <div className="flex justify-center gap-6 mb-16">
+              <a 
+                href="https://www.instagram.com/wayneprotocol/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+              >
+                <img 
+                  src="/lovable-uploads/78bfa5d8-06d0-4ea5-826b-08628ea7e80e.png" 
+                  alt="Instagram" 
+                  className="w-6 h-6 object-contain"
+                />
+              </a>
+              <a 
+                href="#"
+                className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+              >
+                <img 
+                  src="/lovable-uploads/34235c32-e799-41db-a83b-9234937e64a7.png" 
+                  alt="X (Twitter)" 
+                  className="w-6 h-6 object-contain"
+                />
+              </a>
+              <a 
+                href="#"
+                className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
+              >
+                <img 
+                  src="/lovable-uploads/9d47c3b6-f312-464d-8401-470b8e5ec2ab.png" 
+                  alt="Telegram" 
+                  className="w-6 h-6 object-contain"
+                />
+              </a>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-20 bg-gotham-dark">
-        <div className="container mx-auto px-6">
-          <h2 className="font-batman font-bold text-3xl md:text-4xl text-center text-bat-yellow mb-4">
-            PROTOCOLS
-          </h2>
-          <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
-            Four pillars of wisdom to guide you through life's challenges
-          </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Link 
-                key={index}
-                to={feature.path}
-                className="group"
-              >
-                <div className={`gotham-card p-6 rounded-lg h-full hover:transform hover:scale-105 transition-all duration-300 bg-gradient-to-br ${feature.color}`}>
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="font-batman font-bold text-xl text-bat-yellow mb-3 group-hover:text-white transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
-                    {feature.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
+      {/* Features Grid - Hidden when restricted */}
+      {!isRestricted && (
+        <section className="py-20 bg-gotham-dark">
+          <div className="container mx-auto px-6">
+            <h2 className="font-batman font-bold text-3xl md:text-4xl text-center text-bat-yellow mb-4">
+              PROTOCOLS
+            </h2>
+            <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
+              Four pillars of wisdom to guide you through life's challenges
+            </p>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {features.map((feature, index) => (
+                <Link 
+                  key={index}
+                  to={feature.path}
+                  className="group"
+                >
+                  <div className={`gotham-card p-6 rounded-lg h-full hover:transform hover:scale-105 transition-all duration-300 bg-gradient-to-br ${feature.color}`}>
+                    <div className="text-4xl mb-4">{feature.icon}</div>
+                    <h3 className="font-batman font-bold text-xl text-bat-yellow mb-3 group-hover:text-white transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                      {feature.description}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="py-12 bg-gotham-black border-t border-gotham-gray">
