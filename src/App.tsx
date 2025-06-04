@@ -10,7 +10,6 @@ import Justice from "./pages/Justice";
 import Finance from "./pages/Finance";
 import Health from "./pages/Health";
 import AskBatman from "./pages/AskBatman";
-import Missions from "./pages/Missions";
 import Donate from "./pages/Donate";
 import Tools from "./pages/Tools";
 import NotFound from "./pages/NotFound";
@@ -45,7 +44,6 @@ const App = () => (
             <Route path="/finance" element={<Finance />} />
             <Route path="/health" element={<Health />} />
             <Route path="/askbatman" element={<AskBatman />} />
-            <Route path="/missions" element={<Missions />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/tools" element={<Tools />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

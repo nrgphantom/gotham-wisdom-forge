@@ -90,12 +90,6 @@ const Index = () => {
             >
               Consult Batman
             </Link>
-            <Link 
-              to="/missions" 
-              className="px-8 py-4 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 font-batman font-bold uppercase tracking-wide"
-            >
-              View Missions
-            </Link>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">

@@ -21,7 +21,6 @@ const Navigation = () => {
     { path: '/finance', label: 'Finance' },
     { path: '/health', label: 'Health' },
     { path: '/askbatman', label: 'Ask Batman' },
-    { path: '/missions', label: 'Missions' },
     { path: '/tools', label: 'Tools' },
     { path: '/donate', label: 'Donate' }
   ];
