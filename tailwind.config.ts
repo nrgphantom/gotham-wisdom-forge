@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -115,22 +116,13 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					}
-				},
-				'marquee': {
-					'0%': {
-						transform: 'translateX(0%)'
-					},
-					'100%': {
-						transform: 'translateX(-100%)'
-					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'bat-signal': 'bat-signal 3s ease-in-out infinite',
-				'fade-in-up': 'fade-in-up 0.6s ease-out',
-				'marquee': 'marquee 30s linear infinite'
+				'fade-in-up': 'fade-in-up 0.6s ease-out'
 			},
 			fontFamily: {
 				'batman': ['Orbitron', 'monospace'],

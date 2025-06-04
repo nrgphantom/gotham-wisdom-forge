@@ -1,8 +1,8 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
-import RunningTextBanner from '../components/RunningTextBanner';
 import { MessageCircle } from 'lucide-react';
 
 const Index = () => {
@@ -40,10 +40,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gotham-black">
       <Navigation />
-      <RunningTextBanner />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-20 overflow-hidden">
+      <section className="relative pt-32 pb-20 overflow-hidden">
         <BatSignal />
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="mb-8">
@@ -120,7 +119,7 @@ const Index = () => {
                   BATCOIN ($BAT)
                 </p>
                 <p className="text-bat-yellow font-batman font-bold text-lg">
-                  8 NOV 2025
+                  18 NOV 2025
                 </p>
               </div>
             </div>
