@@ -39,11 +39,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <RunningTextBanner />
       <Navigation />
+      <RunningTextBanner />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-20 pb-20 overflow-hidden">
         <BatSignal />
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="mb-8">
