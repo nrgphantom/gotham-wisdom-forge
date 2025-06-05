@@ -1,4 +1,3 @@
-
 /* DNA Helix Animation */
 .dna-helix {
   position: relative;
@@ -196,6 +195,141 @@
   text-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
 }
 
+/* Bat Symbol Animation */
+.bat-symbol {
+  font-size: 28px;
+  color: #FACC15;
+  text-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+  filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.3));
+}
+
+/* Gotham Building Animation */
+.gotham-building {
+  position: relative;
+  width: 40px;
+  height: 80px;
+}
+
+.building-tower {
+  position: absolute;
+  width: 12px;
+  height: 40px;
+  background: linear-gradient(to top, #FACC15, rgba(250, 204, 21, 0.3));
+  left: 14px;
+  top: 0;
+  border-radius: 2px 2px 0 0;
+}
+
+.building-base {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to top, #FACC15, rgba(250, 204, 21, 0.5));
+  bottom: 0;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Scales of Justice */
+.scales-justice {
+  position: relative;
+  width: 60px;
+  height: 40px;
+}
+
+.scale-beam {
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: #FACC15;
+  top: 15px;
+  left: 5px;
+  border-radius: 2px;
+}
+
+.scale-left, .scale-right {
+  position: absolute;
+  width: 15px;
+  height: 10px;
+  border: 2px solid #FACC15;
+  border-radius: 0 0 8px 8px;
+  border-top: none;
+}
+
+.scale-left {
+  left: 0;
+  top: 18px;
+  animation: scale-balance 4s ease-in-out infinite;
+}
+
+.scale-right {
+  right: 0;
+  top: 18px;
+  animation: scale-balance 4s ease-in-out infinite reverse;
+}
+
+@keyframes scale-balance {
+  0%, 100% { transform: rotate(-5deg) translateY(0px); }
+  50% { transform: rotate(5deg) translateY(-3px); }
+}
+
+/* Stock Chart Animation */
+.stock-chart {
+  width: 120px;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-line {
+  width: 100%;
+  height: 2px;
+  background: #FACC15;
+  position: relative;
+  animation: stock-pulse 3s ease-in-out infinite;
+}
+
+.chart-line::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 30px;
+  background: #FACC15;
+  clip-path: polygon(0% 100%, 20% 60%, 40% 80%, 60% 40%, 80% 70%, 100% 20%);
+  animation: chart-move 4s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes stock-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes chart-move {
+  0% { transform: translateX(-20px); }
+  100% { transform: translateX(40px); }
+}
+
+/* Justice Icons */
+.scales-justice, .gavel, .shield, .sword {
+  font-size: 24px;
+  color: #FACC15;
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+}
+
+/* Finance Icons */
+.dollar-sign, .coin, .graph, .calculator {
+  font-size: 24px;
+  color: #FACC15;
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+}
+
+/* Utility Items */
+.utility-item, .batarang {
+  font-size: 20px;
+  color: #FACC15;
+  text-shadow: 0 0 12px rgba(250, 204, 21, 0.4);
+}
+
 /* Common Animation Classes */
 .floating-element {
   animation: float 6s ease-in-out infinite;
@@ -229,7 +363,23 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design */
+/* Additional Batman-themed animations */
+@keyframes gotham-glow {
+  0%, 100% { 
+    text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
+    opacity: 0.6;
+  }
+  50% { 
+    text-shadow: 0 0 20px rgba(250, 204, 21, 0.6);
+    opacity: 1;
+  }
+}
+
+.batman-glow {
+  animation: gotham-glow 3s ease-in-out infinite;
+}
+
+/* Enhanced responsiveness for all themes */
 @media (max-width: 768px) {
   .dna-helix, .molecule, .geometric-pattern {
     transform: scale(0.7);
@@ -241,6 +391,18 @@
   
   .health-icon, .plus-sign {
     font-size: 20px;
+  }
+  
+  .bat-symbol, .scales-justice, .dollar-sign, .utility-item {
+    font-size: 18px;
+  }
+  
+  .gotham-building {
+    transform: scale(0.8);
+  }
+  
+  .stock-chart, .scales-justice {
+    transform: scale(0.7);
   }
 }
 
@@ -255,5 +417,17 @@
   
   .health-icon, .plus-sign {
     font-size: 16px;
+  }
+  
+  .bat-symbol, .scales-justice, .dollar-sign, .utility-item {
+    font-size: 14px;
+  }
+  
+  .gotham-building {
+    transform: scale(0.6);
+  }
+  
+  .stock-chart, .scales-justice {
+    transform: scale(0.5);
   }
 }

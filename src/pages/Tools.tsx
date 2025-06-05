@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Navigation from '../components/Navigation';
+import MotionGraphics from '../components/MotionGraphics';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 
 const Tools = () => {
@@ -37,6 +38,7 @@ const Tools = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
+      <MotionGraphics theme="default" />
       <Navigation />
       
       <div className="pt-32 pb-20">

@@ -1,167 +1,54 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
-import { fetchBatmanWisdom, parseWisdomQuotes } from '../utils/batmanWisdom';
-import { toast } from "sonner";
+import MotionGraphics from '../components/MotionGraphics';
 
 const Justice = () => {
-  const [wisdomQuotes, setWisdomQuotes] = useState<Array<{
-    title: string;
-    quote: string;
-    category: string;
-    icon: string;
-  }>>([]);
-  const [dailyChallenge, setDailyChallenge] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-
-  const fetchWisdomContent = async () => {
-    setLoading(true);
-    try {
-      // Fetch wisdom quotes
-      const wisdomResponse = await fetchBatmanWisdom("wisdomQuotes");
-      const parsedWisdom = parseWisdomQuotes(wisdomResponse);
-      if (parsedWisdom.length > 0) {
-        setWisdomQuotes(parsedWisdom);
-      }
-      
-      // Fetch justice challenge
-      const challengeResponse = await fetchBatmanWisdom("justiceChallenge");
-      if (challengeResponse) {
-        setDailyChallenge(challengeResponse);
-      }
-    } catch (error) {
-      console.error("Error fetching Batman wisdom:", error);
-      toast.error("Failed to communicate with the Batcomputer. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchWisdomContent();
-    
-    // Set up content refresh every 30 minutes
-    const refreshInterval = setInterval(() => {
-      fetchWisdomContent();
-    }, 30 * 60 * 1000);
-    
-    return () => clearInterval(refreshInterval);
-  }, []);
-
-  // Updated justice wisdom with fresh content
-  const defaultWisdomQuotes = [
-    {
-      title: "The Foundation of Honor",
-      quote: "True justice begins with self-accountability. Before you judge others, master yourself. Your actions set the standard.",
-      category: "Self-Mastery",
-      icon: "⚖️"
-    },
-    {
-      title: "Courage in Darkness",
-      quote: "Darkness reveals who you truly are. When no one is watching, your choices define your character. Choose wisely.",
-      category: "Character Building",
-      icon: "🦇"
-    },
-    {
-      title: "The Shield of Truth",
-      quote: "Lies are temporary solutions to permanent problems. Truth might hurt initially, but deception destroys everything eventually.",
-      category: "Integrity",
-      icon: "🛡️"
-    },
-    {
-      title: "Protecting the Vulnerable",
-      quote: "Your strength exists to protect those who cannot protect themselves. Use your power responsibly, not selfishly.",
-      category: "Service",
-      icon: "🏛️"
-    },
-    {
-      title: "Strategic Patience",
-      quote: "Rush to action and you'll stumble. Take time to understand the situation fully before making your move.",
-      category: "Wisdom",
-      icon: "🎯"
-    },
-    {
-      title: "Moral Courage",
-      quote: "Standing up for what's right when it's unpopular is the true test of your moral fiber. Be willing to stand alone.",
-      category: "Leadership",
-      icon: "💪"
-    },
-    {
-      title: "Learning from Failure",
-      quote: "Every defeat teaches something that victory cannot. Embrace your failures as stepping stones to greatness.",
-      category: "Growth",
-      icon: "📈"
-    },
-    {
-      title: "The Power of Example",
-      quote: "People watch what you do more than they listen to what you say. Be the example you want to see in the world.",
-      category: "Influence",
-      icon: "👥"
-    },
-    {
-      title: "Discipline as Freedom",
-      quote: "Discipline yourself so others don't have to. Self-control is the ultimate expression of personal freedom.",
-      category: "Self-Control",
-      icon: "🔒"
-    },
-    {
-      title: "Justice Never Sleeps",
-      quote: "The moment you stop fighting for what's right is the moment evil gains ground. Stay vigilant, stay committed.",
-      category: "Persistence",
-      icon: "🌟"
-    }
+  const justiceWisdom = [
+    "The night is darkest just before the dawn. But I promise you, the dawn is coming.",
+    "It's not who I am underneath, but what I do that defines me.",
+    "Sometimes the truth isn't good enough, sometimes people deserve more. Sometimes people deserve to have their faith rewarded.",
+    "A hero can be anyone. Even a man doing something as simple and reassuring as putting a coat around a young boy's shoulders to let him know that the world hadn't ended.",
+    "Why do we fall? So we can learn to pick ourselves back up.",
+    "All men have limits. They learn what they are and learn not to exceed them. I ignore mine.",
+    "Criminals aren't complicated, Alfred. Just have to figure out what they're after.",
+    "If you make yourself more than just a man, if you devote yourself to an ideal, and if they can't stop you, then you become something else entirely.",
+    "It is not our abilities that show what we truly are… it is our choices.",
+    "You either die a hero or live long enough to see yourself become the villain."
   ];
 
-  const displayWisdomQuotes = wisdomQuotes.length > 0 ? wisdomQuotes : defaultWisdomQuotes;
-  const displayChallenge = dailyChallenge || "Today, speak up for someone who cannot speak for themselves. Justice is not a spectator sport—it requires action.";
+  const getRandomWisdom = () => {
+    return justiceWisdom[Math.floor(Math.random() * justiceWisdom.length)];
+  };
 
   return (
     <div className="min-h-screen bg-gotham-black">
+      <MotionGraphics theme="justice" />
       <Navigation />
       
-      <div className="pt-32 pb-20">
-        <div className="container mx-auto px-6">
+      <div className="pt-24 pb-12">
+        <div className="container mx-auto px-6 max-w-4xl">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="font-batman font-black text-4xl md:text-6xl text-bat-yellow mb-4">
-              JUSTICE PROTOCOLS
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              "Justice is not about revenge. It's about balance. It's about doing what's right, even when it's hard."
+          <div className="text-center mb-8">
+            <div className="relative inline-block mb-6">
+              <div className="absolute inset-0 bg-bat-yellow blur-lg opacity-20 rounded-full"></div>
+              <h1 className="relative font-batman font-black text-4xl md:text-6xl text-bat-yellow">
+                JUSTICE PROTOCOLS
+              </h1>
+            </div>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              "In the pursuit of justice, one must sometimes walk a path of darkness."
             </p>
           </div>
 
-          {/* Wisdom Cards Grid */}
-          {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="w-16 h-16 border-4 border-bat-yellow border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              {displayWisdomQuotes.map((wisdom, index) => (
-                <WisdomCard
-                  key={index}
-                  title={wisdom.title}
-                  quote={wisdom.quote}
-                  category={wisdom.category}
-                  icon={wisdom.icon}
-                />
-              ))}
-            </div>
-          )}
+          {/* Wisdom Card */}
+          <WisdomCard wisdom={getRandomWisdom()} />
 
-          {/* Daily Challenge Section */}
-          <div className="gotham-card p-8 rounded-lg text-center">
-            <h2 className="font-batman font-bold text-2xl text-bat-yellow mb-4">
-              TODAY'S JUSTICE CHALLENGE
-            </h2>
-            <p className="text-lg text-gray-300 mb-6">
-              "{displayChallenge}"
+          {/* Footer Quote */}
+          <div className="text-center mt-8">
+            <p className="text-sm text-gray-500 italic">
+              "Justice is balance. Justice is a shield."
             </p>
-            <div className="text-gray-400 text-sm">
-              "Small acts of justice ripple outward and change the world."
-            </div>
           </div>
         </div>
       </div>

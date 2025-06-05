@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navigation from '../components/Navigation';
-import WisdomCard from '../components/WisdomCard';
-import { fetchBatmanWisdom, parseFinanceTips } from '../utils/batmanWisdom';
-import { toast } from "sonner";
+import StockMarketInsights from '../components/StockMarketInsights';
 import CoinGeckoInsights from '../components/CoinGeckoInsights';
+import WisdomCard from '../components/WisdomCard';
+import MotionGraphics from '../components/MotionGraphics';
+
 const Finance = () => {
   const [mode, setMode] = useState<'rookie' | 'wayne'>('rookie');
   const [financeTips, setFinanceTips] = useState<{
@@ -220,7 +221,9 @@ const Finance = () => {
     icon: "👑"
   }];
   const currentTips = mode === 'rookie' ? financeTips.rookie.length > 0 ? financeTips.rookie : defaultRookieTips : financeTips.wayne.length > 0 ? financeTips.wayne : defaultWayneTips;
-  return <div className="min-h-screen bg-gotham-black">
+  return (
+    <div className="min-h-screen bg-gotham-black">
+      <MotionGraphics theme="finance" />
       <Navigation />
       
       <div className="pt-32 pb-20">
@@ -273,6 +276,8 @@ const Finance = () => {
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Finance;
