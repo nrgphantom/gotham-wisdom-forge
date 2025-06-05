@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
+import MotionGraphics from '../components/MotionGraphics';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { fetchBatmanWisdom, parseHealthProtocols } from '../utils/batmanWisdom';
 import { toast } from "sonner";
+import '../styles/motionGraphics.css';
 
 interface CovidData {
   cases: number;
@@ -187,10 +189,11 @@ const Health = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gotham-black">
+    <div className="min-h-screen bg-gotham-black relative">
       <Navigation />
+      <MotionGraphics />
       
-      <div className="pt-32 pb-20">
+      <div className="pt-32 pb-20 relative z-10">
         <div className="container mx-auto px-6">
           {/* Header */}
           <div className="text-center mb-16">
