@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
@@ -32,24 +31,6 @@ interface WHOData {
   }>;
 }
 
-interface NutritionData {
-  product?: {
-    product_name?: string;
-    nutrition_grades?: string;
-    ecoscore_grade?: string;
-    nova_group?: number;
-    nutriscore_data?: {
-      energy?: number;
-      fiber?: number;
-      proteins?: number;
-      salt?: number;
-      saturated_fat?: number;
-      sodium?: number;
-      sugars?: number;
-    };
-  };
-}
-
 const Health = () => {
   const [healthProtocols, setHealthProtocols] = useState<Array<{
     title: string;
@@ -61,7 +42,6 @@ const Health = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [covidData, setCovidData] = useState<CovidData | null>(null);
   const [whoHealthData, setWhoHealthData] = useState<WHOData | null>(null);
-  const [nutritionData, setNutritionData] = useState<NutritionData | null>(null);
 
   const fetchHealthContent = async () => {
     setLoading(true);
@@ -106,22 +86,15 @@ const Health = () => {
     }
   };
 
-  const fetchNutritionData = async () => {
-    try {
-      // Sample product barcode - you can make this dynamic
-      const response = await fetch('https://world.openfoodfacts.org/api/v0/product/3017620422003.json');
-      const data = await response.json();
-      setNutritionData(data);
-    } catch (error) {
-      console.error("Error fetching nutrition data:", error);
-    }
+  const handleTabChange = (value: string) => {
+    // Auto-scroll to top when tab changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     fetchHealthContent();
     fetchCovidData();
     fetchWHOData();
-    fetchNutritionData();
     
     // Set up content refresh every 30 minutes
     const refreshInterval = setInterval(() => {
@@ -230,7 +203,7 @@ const Health = () => {
           </div>
 
           {/* Health Data Tabs */}
-          <Tabs defaultValue="protocols" className="mb-16">
+          <Tabs defaultValue="protocols" className="mb-16" onValueChange={handleTabChange}>
             <TabsList className="grid w-full grid-cols-3 bg-gotham-gray">
               <TabsTrigger value="protocols" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Health Protocols</TabsTrigger>
               <TabsTrigger value="global" className="text-white data-[state=active]:bg-bat-yellow data-[state=active]:text-gotham-black">Global Health</TabsTrigger>
@@ -324,34 +297,6 @@ const Health = () => {
                   </>
                 )}
                 
-                {nutritionData?.product && (
-                  <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 md:col-span-2 lg:col-span-3">
-                    <CardHeader>
-                      <CardTitle className="text-bat-yellow font-batman">🥗 Nutrition Analysis Sample</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid md:grid-cols-4 gap-4">
-                        <div className="bg-gotham-gray p-4 rounded-lg">
-                          <p className="text-gray-300 text-sm">Product</p>
-                          <p className="text-white font-bold text-sm">{nutritionData.product.product_name || 'Unknown'}</p>
-                        </div>
-                        <div className="bg-gotham-gray p-4 rounded-lg">
-                          <p className="text-gray-300 text-sm">Nutrition Grade</p>
-                          <p className="text-bat-yellow font-bold text-xl">{nutritionData.product.nutrition_grades?.toUpperCase() || 'N/A'}</p>
-                        </div>
-                        <div className="bg-gotham-gray p-4 rounded-lg">
-                          <p className="text-gray-300 text-sm">Eco Score</p>
-                          <p className="text-green-400 font-bold text-xl">{nutritionData.product.ecoscore_grade?.toUpperCase() || 'N/A'}</p>
-                        </div>
-                        <div className="bg-gotham-gray p-4 rounded-lg">
-                          <p className="text-gray-300 text-sm">Processing Level</p>
-                          <p className="text-orange-400 font-bold text-xl">Nova {nutritionData.product.nova_group || 'N/A'}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-
                 {whoHealthData && whoHealthData.value && whoHealthData.value.length > 0 && (
                   <Card className="gotham-card transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-bat-yellow/20 md:col-span-2 lg:col-span-3">
                     <CardHeader>
