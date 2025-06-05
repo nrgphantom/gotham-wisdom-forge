@@ -1,6 +1,6 @@
+
 import React from 'react';
 import Navigation from '../components/Navigation';
-import WaveBackground from '../components/WaveBackground';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 
 const Tools = () => {
@@ -37,7 +37,6 @@ const Tools = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <WaveBackground />
       <Navigation />
       
       <div className="pt-32 pb-20">

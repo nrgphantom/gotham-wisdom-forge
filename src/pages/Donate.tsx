@@ -1,7 +1,5 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import WaveBackground from '../components/WaveBackground';
-
 const Donate = () => {
   const reliefOrganizations = {
     gaza: [{
@@ -94,9 +92,7 @@ const Donate = () => {
   const handleDonationClick = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
-  return (
-    <div className="min-h-screen bg-gotham-black">
-      <WaveBackground />
+  return <div className="min-h-screen bg-gotham-black">
       <Navigation />
       
       <div className="pt-32 pb-20">
@@ -192,8 +188,6 @@ const Donate = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Donate;
