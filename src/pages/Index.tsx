@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import BatSignal from '../components/BatSignal';
-import MotionGraphics from '../components/MotionGraphics';
+import WaveBackground from '../components/WaveBackground';
 import { MessageCircle } from 'lucide-react';
 
 const Index = () => {
@@ -40,7 +39,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <MotionGraphics theme="default" />
+      <WaveBackground />
       <Navigation />
       
       {/* Hero Section */}

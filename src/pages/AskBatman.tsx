@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import Navigation from '../components/Navigation';
-import MotionGraphics from '../components/MotionGraphics';
+import WaveBackground from '../components/WaveBackground';
 import { toast } from "sonner";
 
 const AskBatman = () => {
@@ -29,7 +28,7 @@ const AskBatman = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <MotionGraphics theme="batman" />
+      <WaveBackground />
       <Navigation />
       
       <div className="pt-24 pb-12">

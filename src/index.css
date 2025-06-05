@@ -1,5 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-@import './styles/motionGraphics.css';
+@import './styles/waveBackground.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -73,12 +74,5 @@
   .batman-button:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
-  }
-
-  /* Motion Graphics Performance Optimization */
-  .motion-graphics * {
-    will-change: transform;
-    backface-visibility: hidden;
-    perspective: 1000px;
   }
 }

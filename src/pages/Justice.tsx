@@ -1,7 +1,8 @@
+
 import React from 'react';
 import Navigation from '../components/Navigation';
 import WisdomCard from '../components/WisdomCard';
-import MotionGraphics from '../components/MotionGraphics';
+import WaveBackground from '../components/WaveBackground';
 
 const Justice = () => {
   const justiceWisdom = [
@@ -23,7 +24,7 @@ const Justice = () => {
 
   return (
     <div className="min-h-screen bg-gotham-black">
-      <MotionGraphics theme="justice" />
+      <WaveBackground />
       <Navigation />
       
       <div className="pt-24 pb-12">
@@ -42,7 +43,11 @@ const Justice = () => {
           </div>
 
           {/* Wisdom Card */}
-          <WisdomCard wisdom={getRandomWisdom()} />
+          <WisdomCard 
+            quote={getRandomWisdom()}
+            onNewWisdom={() => {}}
+            isLoading={false}
+          />
 
           {/* Footer Quote */}
           <div className="text-center mt-8">

@@ -1,6 +1,6 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
-import MotionGraphics from '../components/MotionGraphics';
+import WaveBackground from '../components/WaveBackground';
 
 const Donate = () => {
   const reliefOrganizations = {
@@ -96,7 +96,7 @@ const Donate = () => {
   };
   return (
     <div className="min-h-screen bg-gotham-black">
-      <MotionGraphics theme="default" />
+      <WaveBackground />
       <Navigation />
       
       <div className="pt-32 pb-20">
