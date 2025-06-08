@@ -76,17 +76,13 @@ const Index = () => {
               <div className="relative rounded-2xl overflow-hidden border-4 border-bat-yellow/30 bg-gradient-to-br from-gotham-gray/20 to-gotham-black/40 p-2">
                 <div className="relative aspect-video rounded-xl overflow-hidden bg-gotham-black">
                   <iframe
-                    src="https://www.youtube.com/embed/TsLEolNcXug?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=TsLEolNcXug"
+                    src="https://www.youtube.com/embed/TsLEolNcXug?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=TsLEolNcXug"
                     title="Batcoin Introduction"
                     className="absolute inset-0 w-full h-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gotham-black/20 via-transparent to-gotham-black/20 pointer-events-none"></div>
-                </div>
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <div className="w-3 h-3 bg-bat-yellow rounded-full animate-pulse"></div>
-                  <span className="font-batman text-bat-yellow text-sm font-bold tracking-wider">LIVE</span>
                 </div>
               </div>
             </div>
