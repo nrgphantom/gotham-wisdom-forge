@@ -128,7 +128,7 @@ const Index = () => {
           {/* Social Media Links */}
           <div className="flex justify-center gap-6 mb-16">
             <a 
-              href="https://www.instagram.com/wayneprotocol/"
+              href="https://www.instagram.com/batcoinsolana/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full border-2 border-bat-yellow text-bat-yellow hover:bg-bat-yellow hover:text-gotham-black transition-all duration-300 transform hover:scale-110"
