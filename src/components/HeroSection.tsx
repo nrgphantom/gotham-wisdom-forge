@@ -10,6 +10,9 @@ const HeroSection = () => {
     <section className="relative pt-32 pb-20 overflow-hidden">
       <BatSignal />
       <div className="container mx-auto px-6 text-center relative z-10">
+        {/* Video Player - Now above the title */}
+        <VideoPlayer />
+        
         <div className="mb-8">
           <div className="w-32 h-32 flex items-center justify-center mx-auto mb-6">
             <img 
@@ -35,8 +38,6 @@ const HeroSection = () => {
             health, and life itself from Batman's proven methodologies.
           </p>
         </div>
-
-        <VideoPlayer />
 
         {/* BATPAPER Button - Above all others */}
         <div className="flex justify-center mb-8">
