@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useIsMobile } from '../hooks/use-mobile';
@@ -22,6 +21,7 @@ const Navigation = () => {
     { path: '/health', label: 'Health' },
     { path: '/askbatman', label: 'Ask Batman' },
     { path: '/tools', label: 'Tools' },
+    { path: '/announcements', label: 'Announcements' },
     { path: '/donate', label: 'Donate' }
   ];
 
