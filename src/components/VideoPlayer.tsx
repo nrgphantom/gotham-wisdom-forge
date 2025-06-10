@@ -8,10 +8,10 @@ const VideoPlayer = () => {
         <div className="relative rounded-2xl overflow-hidden border-4 border-bat-yellow/30 bg-gradient-to-br from-gotham-gray/20 to-gotham-black/40 p-2">
           <div className="relative aspect-video rounded-xl overflow-hidden bg-gotham-black">
             <iframe
-              src="https://www.youtube.com/embed/TsLEolNcXug?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=TsLEolNcXug&vq=hd1080"
+              src="https://www.youtube.com/embed/TsLEolNcXug?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=TsLEolNcXug&vq=hd1080&iv_load_policy=3&cc_load_policy=0&fs=1&disablekb=0&playsinline=1"
               title="Batcoin Introduction"
               className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gotham-black/20 via-transparent to-gotham-black/20 pointer-events-none"></div>
